@@ -37,13 +37,13 @@ class PreferencesGroup : public Gtk::Widget {
 public:
   _CTOR_DEFAULT
 
-  _WRAP_METHOD(void add(Gtk::Widget* child), adw_preferences_group_add)
+  _WRAP_METHOD(void add(Gtk::Widget& child), adw_preferences_group_add)
   _WRAP_METHOD(Glib::ustring get_description() const, adw_preferences_group_get_description)
   _WRAP_METHOD(Gtk::Widget* get_header_suffix() const, adw_preferences_group_get_header_suffix)
   _WRAP_METHOD(Glib::ustring get_title() const, adw_preferences_group_get_title)
-  _WRAP_METHOD(void remove(Gtk::Widget* child), adw_preferences_group_remove)
+  _WRAP_METHOD(void remove(Gtk::Widget& child), adw_preferences_group_remove)
   _WRAP_METHOD(void set_description(const Glib::ustring& description), adw_preferences_group_set_description)
-  _WRAP_METHOD(void set_header_suffix(Gtk::Widget* suffix), adw_preferences_group_set_header_suffix)
+  _WRAP_METHOD(void set_header_suffix(Gtk::Widget& suffix), adw_preferences_group_set_header_suffix)
   _WRAP_METHOD(void set_title(const Glib::ustring& title), adw_preferences_group_set_title)
 
   _WRAP_PROPERTY("description", Glib::ustring)

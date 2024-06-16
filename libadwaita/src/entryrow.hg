@@ -38,15 +38,15 @@ class EntryRow : public Adw::PreferencesRow, public Gtk::Editable {
 public:
   _CTOR_DEFAULT
 
-  _WRAP_METHOD(void add_prefix(Gtk::Widget* widget), adw_entry_row_add_prefix)
-  _WRAP_METHOD(void add_suffix(Gtk::Widget* widget), adw_entry_row_add_suffix)
+  _WRAP_METHOD(void add_prefix(Gtk::Widget& widget), adw_entry_row_add_prefix)
+  _WRAP_METHOD(void add_suffix(Gtk::Widget& widget), adw_entry_row_add_suffix)
   _WRAP_METHOD(bool get_activates_default() const, adw_entry_row_get_activates_default)
   _WRAP_METHOD(Pango::AttrList get_attributes() const, adw_entry_row_get_attributes)
   _WRAP_METHOD(bool get_enable_moji_completion() const, adw_entry_row_get_enable_emoji_completion)
   _WRAP_METHOD(Gtk::InputHints get_input_hints() const, adw_entry_row_get_input_hints)
   _WRAP_METHOD(Gtk::InputPurpose get_input_purpose() const, adw_entry_row_get_input_purpose)
   _WRAP_METHOD(bool get_show_apply_button() const, adw_entry_row_get_show_apply_button)
-  _WRAP_METHOD(void remove(Gtk::Widget* widget), adw_entry_row_remove)
+  _WRAP_METHOD(void remove(Gtk::Widget& widget), adw_entry_row_remove)
   _WRAP_METHOD(void set_activates_default(bool activates), adw_entry_row_set_activates_default)
   _WRAP_METHOD(void set_attributes(Pango::AttrList& attributes), adw_entry_row_set_attributes)
   _WRAP_METHOD(void set_enable_emoji_completion(bool activates), adw_entry_row_set_enable_emoji_completion)

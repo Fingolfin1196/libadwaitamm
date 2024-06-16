@@ -172,7 +172,7 @@ TabViewDemoWindow::add_page(const Glib::RefPtr<Adw::TabPage> &parent,
   content->set_halign(Gtk::Align::CENTER);
   content->set_valign(Gtk::Align::CENTER);
 
-  Glib::RefPtr<Adw::TabPage> page = view->add_page(content, parent);
+  Glib::RefPtr<Adw::TabPage> page = view->add_page(*content, parent);
 
   Glib::Binding::bind_property(content->property_text(), page->property_title(),
                                Glib::Binding::Flags::SYNC_CREATE |

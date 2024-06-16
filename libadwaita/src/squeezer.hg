@@ -44,11 +44,11 @@ class Squeezer : public Gtk::Widget, public Gtk::Orientable {
 public:
   _CTOR_DEFAULT
 
-  _WRAP_METHOD(Glib::RefPtr<SqueezerPage> add(Gtk::Widget*), adw_squeezer_add, refreturn)
+  _WRAP_METHOD(Glib::RefPtr<SqueezerPage> add(Gtk::Widget&), adw_squeezer_add, refreturn)
   _WRAP_METHOD(bool get_allow_none() const, adw_squeezer_get_allow_none)
   _WRAP_METHOD(bool get_homogeneous() const, adw_squeezer_get_homogeneous)
   _WRAP_METHOD(bool get_interpolate_size() const, adw_squeezer_get_interpolate_size)
-  _WRAP_METHOD(Glib::RefPtr<SqueezerPage> get(Gtk::Widget*) const, adw_squeezer_get_page, refreturn)
+  _WRAP_METHOD(Glib::RefPtr<SqueezerPage> get(Gtk::Widget&) const, adw_squeezer_get_page, refreturn)
 
   _IGNORE(adw_squeezer_get_pages)
   Glib::RefPtr<Gtk::SelectionModel> get_pages() const;
@@ -60,7 +60,7 @@ public:
   _WRAP_METHOD(Gtk::Widget* get_visible_child() const, adw_squeezer_get_visible_child)
   _WRAP_METHOD(float get_xalign() const, adw_squeezer_get_xalign)
   _WRAP_METHOD(float get_yalign() const, adw_squeezer_get_yalign)
-  _WRAP_METHOD(void remove(Gtk::Widget*), adw_squeezer_remove)
+  _WRAP_METHOD(void remove(Gtk::Widget&), adw_squeezer_remove)
   _WRAP_METHOD(void set_allow_none(bool allow_none), adw_squeezer_set_allow_none)
   _WRAP_METHOD(void set_homogeneous(bool homogeneous), adw_squeezer_set_homogeneous)
   _WRAP_METHOD(void set_interpolate_size(bool homogeneous), adw_squeezer_set_interpolate_size)

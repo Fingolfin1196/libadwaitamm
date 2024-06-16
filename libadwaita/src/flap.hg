@@ -63,7 +63,7 @@ public:
   _WRAP_METHOD(bool get_swipe_to_close() const, adw_flap_get_swipe_to_close)
   _WRAP_METHOD(bool get_swipe_to_open() const, adw_flap_get_swipe_to_open)
   _WRAP_METHOD(FlapTransitionType get_transition_type() const, adw_flap_get_transition_type)
-  _WRAP_METHOD(void set_content(Gtk::Widget* widget), adw_flap_set_content)
+  _WRAP_METHOD(void set_content(Gtk::Widget& widget), adw_flap_set_content)
   _WRAP_METHOD(void set_flap(Gtk::Widget* widget), adw_flap_set_flap)
   _WRAP_METHOD(void set_flap_position(Gtk::PackType position), adw_flap_set_flap_position)
   _WRAP_METHOD(void set_fold_duration(guint duration), adw_flap_set_fold_duration)

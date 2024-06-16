@@ -11,8 +11,8 @@ static void test_adw_expander_row_add_remove(void) {
   Adw::ExpanderRow row;
   Gtk::ListBoxRow child;
 
-  row.add_row(&child);
-  row.remove(&child);
+  row.add_row(child);
+  row.remove(child);
 }
 
 static void test_adw_expander_row_subtitle(void) {

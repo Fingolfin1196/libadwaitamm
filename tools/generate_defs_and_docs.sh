@@ -66,7 +66,7 @@ out_dir="$root_dir/libadwaita/src"
 # Documentation
 echo === libadwaita_docs.xml ===
 params="--with-properties --no-recursion"
-for dir in "$source_prefix/libadwaita" "$build_prefix/libadwaita"; do
+for dir in "$source_prefix/src" "$build_prefix/libadwaita"; do
   if [ -d "$dir" ]; then
     params="$params -s $dir"
   fi
@@ -77,11 +77,11 @@ shopt -s nullglob # Skip a filename pattern that matches no file
 
 # Enums
 echo === libadwaita_enum.defs ===
-"$gen_enums" "$source_prefix"/libadwaita/*.h "$build_prefix"/libadwaita/*.h  > "$out_dir/libadwaita_enums.defs"
+"$gen_enums" /usr/include/libadwaita-1/*.h "$build_prefix"/libadwaita/*.h  > "$out_dir/libadwaita_enums.defs"
 
 # Functions and methods
 echo === libadwaita_method.defs ===
-"$gen_methods" "$source_prefix"/libadwaita/*.h "$build_prefix"/libadwaita/*.h  > "$out_dir/libadwaita_methods.defs"
+"$gen_methods" /usr/include/libadwaita-1/*.h "$build_prefix"/libadwaita/*.h  > "$out_dir/libadwaita_methods.defs"
 
 # Properties and signals
 echo === libadwaita_signal.defs ===

@@ -18,11 +18,11 @@ static void test_adw_entry_row_add_remove(void) {
 
   Gtk::Button prefix, suffix;
 
-  row.add_prefix(&prefix);
-  row.add_suffix(&suffix);
+  row.add_prefix(prefix);
+  row.add_suffix(suffix);
 
-  row.remove(&prefix);
-  row.remove(&suffix);
+  row.remove(prefix);
+  row.remove(suffix);
 }
 
 static void test_adw_entry_row_show_apply_button(void) {

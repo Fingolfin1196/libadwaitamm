@@ -11,11 +11,11 @@ static void test_adw_header_bar_pack(void) {
   Adw::HeaderBar bar;
   Gtk::Switch widget1;
 
-  bar.pack_start(&widget1);
+  bar.pack_start(widget1);
 
   Gtk::Switch widget2;
 
-  bar.pack_end(&widget2);
+  bar.pack_end(widget2);
 }
 
 static void test_adw_header_bar_title_widget(void) {

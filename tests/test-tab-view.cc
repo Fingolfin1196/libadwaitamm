@@ -19,10 +19,10 @@ static void add_pages(Adw::TabView &view,
                       std::array<Glib::RefPtr<Adw::TabPage>, N> &pages, int n,
                       int n_pinned) {
   for (int i = 0; i < n_pinned; i++)
-    pages[i] = view.append_pinned(Gtk::make_managed<Gtk::Button>());
+    pages[i] = view.append_pinned(*Gtk::make_managed<Gtk::Button>());
 
   for (int i = n_pinned; i < n; i++)
-    pages[i] = view.append(Gtk::make_managed<Gtk::Button>());
+    pages[i] = view.append(*Gtk::make_managed<Gtk::Button>());
 }
 
 template <size_t N>
@@ -70,17 +70,17 @@ static void test_adw_tab_view_n_pages(void) {
   g_assert_true(n_pages == 0);
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
   n_pages = view.get_property<int>("n-pages");
   g_assert_true(n_pages == 1);
   g_assert_true(view.get_n_pages() == 1);
   g_assert_true(notified == 1);
 
-  view.append(Gtk::make_managed<Gtk::Button>());
+  view.append(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(view.get_n_pages() == 2);
   g_assert_true(notified == 2);
 
-  view.append_pinned(Gtk::make_managed<Gtk::Button>());
+  view.append_pinned(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(view.get_n_pages() == 3);
   g_assert_true(notified == 3);
 
@@ -103,14 +103,14 @@ static void test_adw_tab_view_n_pinned_pages(void) {
   int n_pages = view.get_property<int>("n-pinned-pages");
   g_assert_true(n_pages == 0);
 
-  view.append_pinned(Gtk::make_managed<Gtk::Button>());
+  view.append_pinned(*Gtk::make_managed<Gtk::Button>());
   n_pages = view.get_property<int>("n-pinned-pages");
   g_assert_true(n_pages == 1);
   g_assert_true(view.get_n_pinned_pages() == 1);
   g_assert_true(notified == 1);
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(view.get_n_pinned_pages() == 1);
   g_assert_true(notified == 1);
 
@@ -210,9 +210,9 @@ static void test_adw_tab_view_get_page(void) {
   Gtk::Widget *child2 = Gtk::make_managed<Gtk::Button>();
   Gtk::Widget *child3 = Gtk::make_managed<Gtk::Button>();
 
-  Glib::RefPtr<Adw::TabPage> page1 = view.append_pinned(child1);
-  Glib::RefPtr<Adw::TabPage> page2 = view.append(child2);
-  Glib::RefPtr<Adw::TabPage> page3 = view.append(child3);
+  Glib::RefPtr<Adw::TabPage> page1 = view.append_pinned(*child1);
+  Glib::RefPtr<Adw::TabPage> page2 = view.append(*child2);
+  Glib::RefPtr<Adw::TabPage> page3 = view.append(*child3);
 
   g_assert_true(view.get_nth_page(0) == page1);
   g_assert_true(view.get_nth_page(1) == page2);
@@ -243,13 +243,13 @@ static void test_adw_tab_view_select(void) {
   g_assert_true(selected_page == nullptr);
 
   Glib::RefPtr<Adw::TabPage> page1 =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(view.get_selected_page() == page1);
   g_assert_true(page1->get_selected());
   g_assert_true(notified == 1);
 
   Glib::RefPtr<Adw::TabPage> page2 =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(view.get_selected_page() == page1);
   g_assert_true(page1->get_selected());
   g_assert_false(page2->get_selected());
@@ -288,22 +288,22 @@ static void test_adw_tab_view_add_basic(void) {
   Adw::TabView view;
   std::array<Glib::RefPtr<Adw::TabPage>, 6> pages;
 
-  pages[0] = view.append(Gtk::make_managed<Gtk::Button>());
+  pages[0] = view.append(*Gtk::make_managed<Gtk::Button>());
   assert_page_positions(view, pages, 1, 0, {0});
 
-  pages[1] = view.prepend(Gtk::make_managed<Gtk::Button>());
+  pages[1] = view.prepend(*Gtk::make_managed<Gtk::Button>());
   assert_page_positions(view, pages, 2, 0, {1, 0});
 
-  pages[2] = view.insert(Gtk::make_managed<Gtk::Button>(), 1);
+  pages[2] = view.insert(*Gtk::make_managed<Gtk::Button>(), 1);
   assert_page_positions(view, pages, 3, 0, {1, 2, 0});
 
-  pages[3] = view.prepend_pinned(Gtk::make_managed<Gtk::Button>());
+  pages[3] = view.prepend_pinned(*Gtk::make_managed<Gtk::Button>());
   assert_page_positions(view, pages, 4, 1, {3, 1, 2, 0});
 
-  pages[4] = view.append_pinned(Gtk::make_managed<Gtk::Button>());
+  pages[4] = view.append_pinned(*Gtk::make_managed<Gtk::Button>());
   assert_page_positions(view, pages, 5, 2, {3, 4, 1, 2, 0});
 
-  pages[5] = view.insert_pinned(Gtk::make_managed<Gtk::Button>(), 1);
+  pages[5] = view.insert_pinned(*Gtk::make_managed<Gtk::Button>(), 1);
   assert_page_positions(view, pages, 6, 3, {3, 5, 4, 1, 2, 0});
 }
 
@@ -316,69 +316,69 @@ static void test_adw_tab_view_add_auto(void) {
 
   /* No parent */
 
-  pages[3] = view.add_page(Gtk::make_managed<Gtk::Button>());
+  pages[3] = view.add_page(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(pages[3]->get_parent() == nullptr);
   assert_page_positions(view, pages, 4, 3, {0, 1, 2, 3});
 
-  pages[4] = view.add_page(Gtk::make_managed<Gtk::Button>());
+  pages[4] = view.add_page(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(pages[4]->get_parent() == nullptr);
   assert_page_positions(view, pages, 5, 3, {0, 1, 2, 3, 4});
 
-  pages[5] = view.add_page(Gtk::make_managed<Gtk::Button>());
+  pages[5] = view.add_page(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(pages[5]->get_parent() == nullptr);
   assert_page_positions(view, pages, 6, 3, {0, 1, 2, 3, 4, 5});
 
   /* Parent is a regular page */
 
-  pages[6] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[4]);
+  pages[6] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[4]);
   g_assert_true(pages[6]->get_parent() == pages[4]);
   assert_page_positions(view, pages, 7, 3, {0, 1, 2, 3, 4, 6, 5});
 
-  pages[7] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[4]);
+  pages[7] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[4]);
   g_assert_true(pages[7]->get_parent() == pages[4]);
   assert_page_positions(view, pages, 8, 3, {0, 1, 2, 3, 4, 6, 7, 5});
 
-  pages[8] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[6]);
+  pages[8] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[6]);
   g_assert_true(pages[8]->get_parent() == pages[6]);
   assert_page_positions(view, pages, 9, 3, {0, 1, 2, 3, 4, 6, 8, 7, 5});
 
-  pages[9] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[6]);
+  pages[9] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[6]);
   g_assert_true(pages[9]->get_parent() == pages[6]);
   assert_page_positions(view, pages, 10, 3, {0, 1, 2, 3, 4, 6, 8, 9, 7, 5});
 
-  pages[10] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[4]);
+  pages[10] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[4]);
   g_assert_true(pages[10]->get_parent() == pages[4]);
   assert_page_positions(view, pages, 11, 3, {0, 1, 2, 3, 4, 6, 8, 9, 7, 10, 5});
 
   /* Parent is a pinned page */
 
-  pages[11] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[1]);
+  pages[11] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[1]);
   g_assert_true(pages[11]->get_parent() == pages[1]);
   assert_page_positions(view, pages, 12, 3,
                         {0, 1, 2, 11, 3, 4, 6, 8, 9, 7, 10, 5});
 
-  pages[12] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[11]);
+  pages[12] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[11]);
   g_assert_true(pages[12]->get_parent() == pages[11]);
   assert_page_positions(view, pages, 13, 3,
                         {0, 1, 2, 11, 12, 3, 4, 6, 8, 9, 7, 10, 5});
 
-  pages[13] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[1]);
+  pages[13] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[1]);
   g_assert_true(pages[13]->get_parent() == pages[1]);
   assert_page_positions(view, pages, 14, 3,
                         {0, 1, 2, 11, 12, 13, 3, 4, 6, 8, 9, 7, 10, 5});
 
-  pages[14] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[0]);
+  pages[14] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[0]);
   g_assert_true(pages[14]->get_parent() == pages[0]);
   assert_page_positions(view, pages, 15, 3,
                         {0, 1, 2, 14, 11, 12, 13, 3, 4, 6, 8, 9, 7, 10, 5});
 
-  pages[15] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[1]);
+  pages[15] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[1]);
   g_assert_true(pages[15]->get_parent() == pages[1]);
   assert_page_positions(view, pages, 16, 3,
                         {0, 1, 2, 15, 14, 11, 12, 13, 3, 4, 6, 8, 9, 7, 10, 5});
 
   /* Parent is the last page */
-  pages[16] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[5]);
+  pages[16] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[5]);
   g_assert_true(pages[16]->get_parent() == pages[5]);
   assert_page_positions(
       view, pages, 17, 3,
@@ -505,7 +505,7 @@ static void test_adw_tab_view_pin(void) {
   std::array<Glib::RefPtr<Adw::TabPage>, 4> pages;
 
   /* Test specifically pinning with only 1 page */
-  pages[0] = view.append(Gtk::make_managed<Gtk::Button>());
+  pages[0] = view.append(*Gtk::make_managed<Gtk::Button>());
   g_assert_false(pages[0]->get_pinned());
   assert_page_positions(view, pages, 1, 0, {0});
 
@@ -517,9 +517,9 @@ static void test_adw_tab_view_pin(void) {
   g_assert_false(pages[0]->get_pinned());
   assert_page_positions(view, pages, 1, 0, {0});
 
-  pages[1] = view.append(Gtk::make_managed<Gtk::Button>());
-  pages[2] = view.append(Gtk::make_managed<Gtk::Button>());
-  pages[3] = view.append(Gtk::make_managed<Gtk::Button>());
+  pages[1] = view.append(*Gtk::make_managed<Gtk::Button>());
+  pages[2] = view.append(*Gtk::make_managed<Gtk::Button>());
+  pages[3] = view.append(*Gtk::make_managed<Gtk::Button>());
   assert_page_positions(view, pages, 4, 0, {0, 1, 2, 3});
 
   view.set_page_pinned(pages[2], true);
@@ -642,11 +642,11 @@ static void test_adw_tab_view_close_select(void) {
   std::array<Glib::RefPtr<Adw::TabPage>, 14> pages;
 
   add_pages(view, pages, 9, 3);
-  pages[9] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[4]);
-  pages[10] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[4]);
-  pages[11] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[9]);
-  pages[12] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[1]);
-  pages[13] = view.add_page(Gtk::make_managed<Gtk::Button>(), pages[1]);
+  pages[9] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[4]);
+  pages[10] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[4]);
+  pages[11] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[9]);
+  pages[12] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[1]);
+  pages[13] = view.add_page(*Gtk::make_managed<Gtk::Button>(), pages[1]);
 
   assert_page_positions(view, pages, 14, 3,
                         {0, 1, 2, 12, 13, 3, 4, 9, 11, 10, 5, 6, 7, 8});
@@ -743,8 +743,8 @@ test_adw_tab_view_pages (void)
   sigc::connection conn2 = pages_model->signal_selection_changed().connect(
       sigc::bind(sigc::ptr_fun(check_selection_non_null<guint, guint>), std::ref(view)));
 
-  pages[0] = view.add_page(Gtk::make_managed<Gtk::Button>());
-  pages[1] = view.add_page(Gtk::make_managed<Gtk::Button>());
+  pages[0] = view.add_page(*Gtk::make_managed<Gtk::Button>());
+  pages[1] = view.add_page(*Gtk::make_managed<Gtk::Button>());
 
   view.close_page(pages[0]);
 
@@ -763,7 +763,7 @@ static void test_adw_tab_page_title(void) {
   Adw::TabView view;
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
 
   notified = 0;
   page->property_title().signal_changed().connect(sigc::ptr_fun(notify_cb));
@@ -785,7 +785,7 @@ static void test_adw_tab_page_tooltip(void) {
   Adw::TabView view;
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
 
   notified = 0;
   page->property_tooltip().signal_changed().connect(sigc::ptr_fun(notify_cb));
@@ -810,7 +810,7 @@ static void test_adw_tab_page_icon(void) {
   Glib::RefPtr<Gio::Icon> icon2 = Gio::ThemedIcon::create("go-next-symbolic");
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
 
   notified = 0;
   page->property_icon().signal_changed().connect(sigc::ptr_fun(notify_cb));
@@ -833,7 +833,7 @@ static void test_adw_tab_page_loading(void) {
   Adw::TabView view;
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
 
   notified = 0;
   page->property_loading().signal_changed().connect(sigc::ptr_fun(notify_cb));
@@ -859,7 +859,7 @@ static void test_adw_tab_page_indicator_icon(void) {
   Glib::RefPtr<Gio::Icon> icon2 = Gio::ThemedIcon::create("go-next-symbolic");
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
 
   notified = 0;
   page->property_indicator_icon().signal_changed().connect(
@@ -883,7 +883,7 @@ static void test_adw_tab_page_indicator_tooltip(void) {
   Adw::TabView view;
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
 
   notified = 0;
   page->property_indicator_tooltip().signal_changed().connect(
@@ -907,7 +907,7 @@ static void test_adw_tab_page_indicator_activatable(void) {
   Adw::TabView view;
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
 
   notified = 0;
   page->property_indicator_activatable().signal_changed().connect(
@@ -932,7 +932,7 @@ static void test_adw_tab_page_needs_attention(void) {
   Adw::TabView view;
 
   Glib::RefPtr<Adw::TabPage> page =
-      view.append(Gtk::make_managed<Gtk::Button>());
+      view.append(*Gtk::make_managed<Gtk::Button>());
 
   notified = 0;
   page->property_needs_attention().signal_changed().connect(
@@ -1003,7 +1003,7 @@ static void test_adw_tab_view_pages_to_list_view(void) {
   list_view.set_factory(factory);
   list_view.set_model(pages);
 
-  view.append(Gtk::make_managed<Gtk::Label>("test label"));
+  view.append(*Gtk::make_managed<Gtk::Label>("test label"));
 }
 
 int main(int argc, char *argv[]) {

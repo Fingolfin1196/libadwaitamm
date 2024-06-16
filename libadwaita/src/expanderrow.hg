@@ -37,15 +37,15 @@ class ExpanderRow : public Adw::PreferencesRow {
 public:
   _CTOR_DEFAULT
 
-  _WRAP_METHOD(void add_action(Gtk::Widget* widget), adw_expander_row_add_action)
-  _WRAP_METHOD(void add_prefix(Gtk::Widget* widget), adw_expander_row_add_prefix)
-  _WRAP_METHOD(void add_row(Gtk::Widget* child), adw_expander_row_add_row)
+  _WRAP_METHOD(void add_action(Gtk::Widget& widget), adw_expander_row_add_action)
+  _WRAP_METHOD(void add_prefix(Gtk::Widget& widget), adw_expander_row_add_prefix)
+  _WRAP_METHOD(void add_row(Gtk::Widget& child), adw_expander_row_add_row)
   _WRAP_METHOD(bool get_enable_expansion() const, adw_expander_row_get_enable_expansion)
   _WRAP_METHOD(bool get_expanded() const, adw_expander_row_get_expanded)
   _WRAP_METHOD(Glib::ustring get_icon_name() const, adw_expander_row_get_icon_name)
   _WRAP_METHOD(bool get_show_enable_switch() const, adw_expander_row_get_show_enable_switch)
   _WRAP_METHOD(Glib::ustring get_subtitle() const, adw_expander_row_get_subtitle)
-  _WRAP_METHOD(void remove(Gtk::Widget* child), adw_expander_row_remove)
+  _WRAP_METHOD(void remove(Gtk::Widget& child), adw_expander_row_remove)
   _WRAP_METHOD(void set_enable_expansion(bool enable_expansion), adw_expander_row_set_enable_expansion)
   _WRAP_METHOD(void set_expanded(bool expanded), adw_expander_row_set_expanded)
   _WRAP_METHOD(void set_icon_name(const Glib::ustring& icon_name), adw_expander_row_set_icon_name)

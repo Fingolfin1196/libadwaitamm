@@ -128,7 +128,7 @@ static void test_adw_tab_bar_tabs_revealed(void) {
   g_assert_true(notified == 2);
 
   Glib::RefPtr<Adw::TabPage> page =
-      view->append_pinned(Gtk::make_managed<Gtk::Button>());
+      view->append_pinned(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(bar.get_tabs_revealed());
   g_assert_true(notified == 3);
 
@@ -136,7 +136,7 @@ static void test_adw_tab_bar_tabs_revealed(void) {
   g_assert_false(bar.get_tabs_revealed());
   g_assert_true(notified == 4);
 
-  view->append(Gtk::make_managed<Gtk::Button>());
+  view->append(*Gtk::make_managed<Gtk::Button>());
   g_assert_true(bar.get_tabs_revealed());
   g_assert_true(notified == 5);
 

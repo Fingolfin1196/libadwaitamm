@@ -41,10 +41,10 @@ class TabView : public Gtk::Widget {
 public:
   _CTOR_DEFAULT
 
-  _WRAP_METHOD(Glib::RefPtr<TabPage> add_page(Gtk::Widget* child, const Glib::RefPtr<TabPage>& parent{:?}), adw_tab_view_add_page, refreturn)
+  _WRAP_METHOD(Glib::RefPtr<TabPage> add_page(Gtk::Widget& child, const Glib::RefPtr<TabPage>& parent{:?}), adw_tab_view_add_page, refreturn)
   _WRAP_METHOD(void add_shortcuts(TabViewShortcuts shortcuts), adw_tab_view_add_shortcuts)
-  _WRAP_METHOD(Glib::RefPtr<TabPage> append(Gtk::Widget* child), adw_tab_view_append, refreturn)
-  _WRAP_METHOD(Glib::RefPtr<TabPage> append_pinned(Gtk::Widget* child), adw_tab_view_append_pinned, refreturn)
+  _WRAP_METHOD(Glib::RefPtr<TabPage> append(Gtk::Widget& child), adw_tab_view_append, refreturn)
+  _WRAP_METHOD(Glib::RefPtr<TabPage> append_pinned(Gtk::Widget& child), adw_tab_view_append_pinned, refreturn)
   _WRAP_METHOD(void close_other_pages(const Glib::RefPtr<TabPage>& page), adw_tab_view_close_other_pages)
   _WRAP_METHOD(void close_page(const Glib::RefPtr<TabPage>& page), adw_tab_view_close_page)
   _WRAP_METHOD(void close_page_finish(const Glib::RefPtr<TabPage>& page, bool confirm), adw_tab_view_close_page_finish)
@@ -64,10 +64,10 @@ public:
 
   _WRAP_METHOD(Glib::RefPtr<TabPage> get_selected_page() const, adw_tab_view_get_selected_page, refreturn)
   _WRAP_METHOD(TabViewShortcuts get_shortcuts() const, adw_tab_view_get_shortcuts)
-  _WRAP_METHOD(Glib::RefPtr<TabPage> insert(Gtk::Widget* child, int position), adw_tab_view_insert, refreturn)
-  _WRAP_METHOD(Glib::RefPtr<TabPage> insert_pinned(Gtk::Widget* child, int position), adw_tab_view_insert_pinned, refreturn)
-  _WRAP_METHOD(Glib::RefPtr<TabPage> prepend(Gtk::Widget* child), adw_tab_view_prepend, refreturn)
-  _WRAP_METHOD(Glib::RefPtr<TabPage> prepend_pinned(Gtk::Widget* child), adw_tab_view_prepend_pinned, refreturn)
+  _WRAP_METHOD(Glib::RefPtr<TabPage> insert(Gtk::Widget& child, int position), adw_tab_view_insert, refreturn)
+  _WRAP_METHOD(Glib::RefPtr<TabPage> insert_pinned(Gtk::Widget& child, int position), adw_tab_view_insert_pinned, refreturn)
+  _WRAP_METHOD(Glib::RefPtr<TabPage> prepend(Gtk::Widget& child), adw_tab_view_prepend, refreturn)
+  _WRAP_METHOD(Glib::RefPtr<TabPage> prepend_pinned(Gtk::Widget& child), adw_tab_view_prepend_pinned, refreturn)
   _WRAP_METHOD(void remove_shortcuts(TabViewShortcuts shortcuts), adw_tab_view_remove_shortcuts)
   _WRAP_METHOD(bool reorder_backward(const Glib::RefPtr<TabPage>& page), adw_tab_view_reorder_backward)
   _WRAP_METHOD(bool reorder_first(const Glib::RefPtr<TabPage>& page), adw_tab_view_reorder_first)

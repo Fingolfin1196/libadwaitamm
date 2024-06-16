@@ -42,7 +42,7 @@ class Carousel : public Gtk::Widget, public Gtk::Orientable, public Adw::Swipeab
 public:
   _CTOR_DEFAULT
 
-  _WRAP_METHOD(void append(Gtk::Widget* child), adw_carousel_append)
+  _WRAP_METHOD(void append(Gtk::Widget& child), adw_carousel_append)
   _WRAP_METHOD(bool get_allow_long_swipes() const, adw_carousel_get_allow_long_swipes)
   _WRAP_METHOD(bool get_allow_mouse_drag() const, adw_carousel_get_allow_mouse_drag)
   _WRAP_METHOD(bool get_allow_scroll_wheel() const, adw_carousel_get_allow_scroll_wheel)

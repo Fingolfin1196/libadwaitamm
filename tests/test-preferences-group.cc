@@ -11,18 +11,18 @@ static void test_adw_preferences_group_add_remove(void) {
   Adw::PreferencesGroup group;
 
   Adw::PreferencesRow *row = Gtk::make_managed<Adw::PreferencesRow>();
-  group.add(row);
+  group.add(*row);
 
   Gtk::Switch *widget = Gtk::make_managed<Gtk::Switch>();
-  group.add(widget);
+  group.add(*widget);
 
   g_assert_true(G_TYPE_CHECK_INSTANCE_TYPE(
       gtk_widget_get_parent(GTK_WIDGET(row->gobj())), GTK_TYPE_LIST_BOX));
   g_assert_true(G_TYPE_CHECK_INSTANCE_TYPE(
       gtk_widget_get_parent(GTK_WIDGET(widget->gobj())), GTK_TYPE_BOX));
 
-  group.remove(row);
-  group.remove(widget);
+  group.remove(*row);
+  group.remove(*widget);
 }
 
 static void test_adw_preferences_group_title(void) {

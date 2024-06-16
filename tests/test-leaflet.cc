@@ -28,13 +28,13 @@ static void test_adw_leaflet_adjacent_child(void) {
   for (int i = 0; i < 3; i++) {
     children[i] = Gtk::make_managed<Gtk::Button>();
 
-    Glib::RefPtr<Adw::LeafletPage> page = leaflet.append(children[i]);
+    Glib::RefPtr<Adw::LeafletPage> page = leaflet.append(*children[i]);
 
     if (i == 1)
       page->set_navigatable(false);
   }
 
-  leaflet.set_visible_child(children[0]);
+  leaflet.set_visible_child(*children[0]);
 
   Gtk::Widget *result =
       leaflet.get_adjacent_child(Adw::NavigationDirection::BACK);
@@ -43,7 +43,7 @@ static void test_adw_leaflet_adjacent_child(void) {
   result = leaflet.get_adjacent_child(Adw::NavigationDirection::FORWARD);
   g_assert_true(result->gobj() == children[2]->gobj());
 
-  leaflet.set_visible_child(children[1]);
+  leaflet.set_visible_child(*children[1]);
 
   result = leaflet.get_adjacent_child(Adw::NavigationDirection::BACK);
   g_assert_true(result->gobj() == children[0]->gobj());
@@ -51,7 +51,7 @@ static void test_adw_leaflet_adjacent_child(void) {
   result = leaflet.get_adjacent_child(Adw::NavigationDirection::FORWARD);
   g_assert_true(result->gobj() == children[2]->gobj());
 
-  leaflet.set_visible_child(children[2]);
+  leaflet.set_visible_child(*children[2]);
 
   result = leaflet.get_adjacent_child(Adw::NavigationDirection::BACK);
   g_assert_true(result->gobj() == children[0]->gobj());
@@ -73,13 +73,13 @@ static void test_adw_leaflet_navigate(void) {
   for (int i = 0; i < 3; i++) {
     children[i] = Gtk::make_managed<Gtk::Label>("");
 
-    Glib::RefPtr<Adw::LeafletPage> page = leaflet.append(children[i]);
+    Glib::RefPtr<Adw::LeafletPage> page = leaflet.append(*children[i]);
 
     if (i == 1)
       page->set_navigatable(false);
   }
 
-  leaflet.set_visible_child(children[0]);
+  leaflet.set_visible_child(*children[0]);
 
   result = leaflet.navigate(Adw::NavigationDirection::BACK);
   g_assert_false(result);
@@ -106,10 +106,10 @@ static void test_adw_leaflet_prepend(void) {
 
   Glib::RefPtr<Gtk::SelectionModel> pages = leaflet.get_pages();
 
-  leaflet.prepend(labels[1]);
+  leaflet.prepend(*labels[1]);
   assert_page_position(pages, labels[1], 0);
 
-  leaflet.prepend(labels[0]);
+  leaflet.prepend(*labels[0]);
   assert_page_position(pages, labels[0], 0);
   assert_page_position(pages, labels[1], 1);
 }
@@ -124,15 +124,15 @@ static void test_adw_leaflet_insert_child_after(void) {
 
   Glib::RefPtr<Gtk::SelectionModel> pages = leaflet.get_pages();
 
-  leaflet.append(labels[2]);
+  leaflet.append(*labels[2]);
 
   assert_page_position(pages, labels[2], 0);
 
-  leaflet.insert_child_after(labels[0], nullptr);
+  leaflet.insert_child_after(*labels[0], nullptr);
   assert_page_position(pages, labels[0], 0);
   assert_page_position(pages, labels[2], 1);
 
-  leaflet.insert_child_after(labels[1], labels[0]);
+  leaflet.insert_child_after(*labels[1], labels[0]);
   assert_page_position(pages, labels[0], 0);
   assert_page_position(pages, labels[1], 1);
   assert_page_position(pages, labels[2], 2);
@@ -145,7 +145,7 @@ static void test_adw_leaflet_reorder_child_after(void) {
   for (int i = 0; i < 3; i++) {
     labels[i] = Gtk::make_managed<Gtk::Label>("");
 
-    leaflet.append(labels[i]);
+    leaflet.append(*labels[i]);
   }
 
   Glib::RefPtr<Gtk::SelectionModel> pages = leaflet.get_pages();
@@ -154,12 +154,12 @@ static void test_adw_leaflet_reorder_child_after(void) {
   assert_page_position(pages, labels[1], 1);
   assert_page_position(pages, labels[2], 2);
 
-  leaflet.reorder_child_after(labels[2], nullptr);
+  leaflet.reorder_child_after(*labels[2], nullptr);
   assert_page_position(pages, labels[2], 0);
   assert_page_position(pages, labels[0], 1);
   assert_page_position(pages, labels[1], 2);
 
-  leaflet.reorder_child_after(labels[0], labels[1]);
+  leaflet.reorder_child_after(*labels[0], labels[1]);
   assert_page_position(pages, labels[2], 0);
   assert_page_position(pages, labels[1], 1);
   assert_page_position(pages, labels[0], 2);

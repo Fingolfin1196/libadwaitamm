@@ -45,7 +45,7 @@ public:
   _WRAP_METHOD(void activate(), adw_action_row_activate)
   _WRAP_METHOD(void add_prefix(Gtk::Widget& widget), adw_action_row_add_prefix)
   _WRAP_METHOD(void add_suffix(Gtk::Widget& widget), adw_action_row_add_suffix)
-  _WRAP_METHOD(void set_activatable_widget(Gtk::Widget* widget) const, adw_action_row_set_activatable_widget)
+  _WRAP_METHOD(void set_activatable_widget(Gtk::Widget& widget) const, adw_action_row_set_activatable_widget)
   _WRAP_METHOD(void set_icon_name(const Glib::ustring& icon_name), adw_action_row_set_icon_name)
   _WRAP_METHOD(void set_subtitle(const Glib::ustring& subtitle), adw_action_row_set_subtitle)
   _WRAP_METHOD(void set_subtitle_lines(int subtitle_lines), adw_action_row_set_subtitle_lines)

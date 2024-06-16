@@ -2,6 +2,17 @@
 ; object definitions ...
 ;; Enumerations and flags ...
 
+(define-enum ResponseAppearance
+  (in-module "Adw")
+  (c-name "AdwResponseAppearance")
+  (gtype-id "ADW_TYPE_RESPONSE_APPEARANCE")
+  (values
+    '("default" "ADW_RESPONSE_DEFAULT")
+    '("suggested" "ADW_RESPONSE_SUGGESTED")
+    '("destructive" "ADW_RESPONSE_DESTRUCTIVE")
+  )
+)
+
 (define-enum AnimationState
   (in-module "Adw")
   (c-name "AdwAnimationState")
@@ -11,6 +22,39 @@
     '("paused" "ADW_ANIMATION_PAUSED")
     '("playing" "ADW_ANIMATION_PLAYING")
     '("finished" "ADW_ANIMATION_FINISHED")
+  )
+)
+
+(define-enum BreakpointConditionLengthType
+  (in-module "Adw")
+  (c-name "AdwBreakpointConditionLengthType")
+  (gtype-id "ADW_TYPE_BREAKPOINT_CONDITION_LENGTH_TYPE")
+  (values
+    '("min-width" "ADW_BREAKPOINT_CONDITION_MIN_WIDTH")
+    '("max-width" "ADW_BREAKPOINT_CONDITION_MAX_WIDTH")
+    '("min-height" "ADW_BREAKPOINT_CONDITION_MIN_HEIGHT")
+    '("max-height" "ADW_BREAKPOINT_CONDITION_MAX_HEIGHT")
+  )
+)
+
+(define-enum BreakpointConditionRatioType
+  (in-module "Adw")
+  (c-name "AdwBreakpointConditionRatioType")
+  (gtype-id "ADW_TYPE_BREAKPOINT_CONDITION_RATIO_TYPE")
+  (values
+    '("min-aspect-ratio" "ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO")
+    '("max-aspect-ratio" "ADW_BREAKPOINT_CONDITION_MAX_ASPECT_RATIO")
+  )
+)
+
+(define-enum DialogPresentationMode
+  (in-module "Adw")
+  (c-name "AdwDialogPresentationMode")
+  (gtype-id "ADW_TYPE_DIALOG_PRESENTATION_MODE")
+  (values
+    '("auto" "ADW_DIALOG_AUTO")
+    '("floating" "ADW_DIALOG_FLOATING")
+    '("bottom-sheet" "ADW_DIALOG_BOTTOM_SHEET")
   )
 )
 
@@ -106,14 +150,14 @@
   )
 )
 
-(define-enum ResponseAppearance
+(define-enum LengthUnit
   (in-module "Adw")
-  (c-name "AdwResponseAppearance")
-  (gtype-id "ADW_TYPE_RESPONSE_APPEARANCE")
+  (c-name "AdwLengthUnit")
+  (gtype-id "ADW_TYPE_LENGTH_UNIT")
   (values
-    '("default" "ADW_RESPONSE_DEFAULT")
-    '("suggested" "ADW_RESPONSE_SUGGESTED")
-    '("destructive" "ADW_RESPONSE_DESTRUCTIVE")
+    '("px" "ADW_LENGTH_UNIT_PX")
+    '("pt" "ADW_LENGTH_UNIT_PT")
+    '("sp" "ADW_LENGTH_UNIT_SP")
   )
 )
 
@@ -182,6 +226,17 @@
   )
 )
 
+(define-enum ToolbarStyle
+  (in-module "Adw")
+  (c-name "AdwToolbarStyle")
+  (gtype-id "ADW_TYPE_TOOLBAR_STYLE")
+  (values
+    '("flat" "ADW_TOOLBAR_FLAT")
+    '("raised" "ADW_TOOLBAR_RAISED")
+    '("raised-border" "ADW_TOOLBAR_RAISED_BORDER")
+  )
+)
+
 (define-enum ViewSwitcherPolicy
   (in-module "Adw")
   (c-name "AdwViewSwitcherPolicy")
@@ -193,12 +248,404 @@
 )
 
 
+;; From adw-about-dialog.h
+
+(define-function adw_about_dialog_new
+  (c-name "adw_about_dialog_new")
+  (is-constructor-of "AdwAboutDialog")
+  (return-type "AdwDialog*")
+)
+
+(define-function adw_about_dialog_new_from_appdata
+  (c-name "adw_about_dialog_new_from_appdata")
+  (return-type "AdwDialog*")
+  (parameters
+    '("const-char*" "resource_path")
+    '("const-char*" "release_notes_version")
+  )
+)
+
+(define-method get_application_name
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_application_name")
+  (return-type "const-char*")
+)
+
+(define-method set_application_name
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_application_name")
+  (return-type "none")
+  (parameters
+    '("const-char*" "application_name")
+  )
+)
+
+(define-method get_application_icon
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_application_icon")
+  (return-type "const-char*")
+)
+
+(define-method set_application_icon
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_application_icon")
+  (return-type "none")
+  (parameters
+    '("const-char*" "application_icon")
+  )
+)
+
+(define-method get_developer_name
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_developer_name")
+  (return-type "const-char*")
+)
+
+(define-method set_developer_name
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_developer_name")
+  (return-type "none")
+  (parameters
+    '("const-char*" "developer_name")
+  )
+)
+
+(define-method get_version
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_version")
+  (return-type "const-char*")
+)
+
+(define-method set_version
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_version")
+  (return-type "none")
+  (parameters
+    '("const-char*" "version")
+  )
+)
+
+(define-method get_release_notes_version
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_release_notes_version")
+  (return-type "const-char*")
+)
+
+(define-method set_release_notes_version
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_release_notes_version")
+  (return-type "none")
+  (parameters
+    '("const-char*" "version")
+  )
+)
+
+(define-method get_release_notes
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_release_notes")
+  (return-type "const-char*")
+)
+
+(define-method set_release_notes
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_release_notes")
+  (return-type "none")
+  (parameters
+    '("const-char*" "release_notes")
+  )
+)
+
+(define-method get_comments
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_comments")
+  (return-type "const-char*")
+)
+
+(define-method set_comments
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_comments")
+  (return-type "none")
+  (parameters
+    '("const-char*" "comments")
+  )
+)
+
+(define-method get_website
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_website")
+  (return-type "const-char*")
+)
+
+(define-method set_website
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_website")
+  (return-type "none")
+  (parameters
+    '("const-char*" "website")
+  )
+)
+
+(define-method get_support_url
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_support_url")
+  (return-type "const-char*")
+)
+
+(define-method set_support_url
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_support_url")
+  (return-type "none")
+  (parameters
+    '("const-char*" "support_url")
+  )
+)
+
+(define-method get_issue_url
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_issue_url")
+  (return-type "const-char*")
+)
+
+(define-method set_issue_url
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_issue_url")
+  (return-type "none")
+  (parameters
+    '("const-char*" "issue_url")
+  )
+)
+
+(define-method add_link
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_add_link")
+  (return-type "none")
+  (parameters
+    '("const-char*" "title")
+    '("const-char*" "url")
+  )
+)
+
+(define-method get_debug_info
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_debug_info")
+  (return-type "const-char*")
+)
+
+(define-method set_debug_info
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_debug_info")
+  (return-type "none")
+  (parameters
+    '("const-char*" "debug_info")
+  )
+)
+
+(define-method get_debug_info_filename
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_debug_info_filename")
+  (return-type "const-char*")
+)
+
+(define-method set_debug_info_filename
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_debug_info_filename")
+  (return-type "none")
+  (parameters
+    '("const-char*" "filename")
+  )
+)
+
+(define-method get_developers
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_developers")
+  (return-type "const-char*-const*")
+)
+
+(define-method set_developers
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_developers")
+  (return-type "none")
+  (parameters
+    '("const-char**" "developers")
+  )
+)
+
+(define-method get_designers
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_designers")
+  (return-type "const-char*-const*")
+)
+
+(define-method set_designers
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_designers")
+  (return-type "none")
+  (parameters
+    '("const-char**" "designers")
+  )
+)
+
+(define-method get_artists
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_artists")
+  (return-type "const-char*-const*")
+)
+
+(define-method set_artists
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_artists")
+  (return-type "none")
+  (parameters
+    '("const-char**" "artists")
+  )
+)
+
+(define-method get_documenters
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_documenters")
+  (return-type "const-char*-const*")
+)
+
+(define-method set_documenters
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_documenters")
+  (return-type "none")
+  (parameters
+    '("const-char**" "documenters")
+  )
+)
+
+(define-method get_translator_credits
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_translator_credits")
+  (return-type "const-char*")
+)
+
+(define-method set_translator_credits
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_translator_credits")
+  (return-type "none")
+  (parameters
+    '("const-char*" "translator_credits")
+  )
+)
+
+(define-method add_credit_section
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_add_credit_section")
+  (return-type "none")
+  (parameters
+    '("const-char*" "name")
+    '("const-char**" "people")
+  )
+)
+
+(define-method add_acknowledgement_section
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_add_acknowledgement_section")
+  (return-type "none")
+  (parameters
+    '("const-char*" "name")
+    '("const-char**" "people")
+  )
+)
+
+(define-method get_copyright
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_copyright")
+  (return-type "const-char*")
+)
+
+(define-method set_copyright
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_copyright")
+  (return-type "none")
+  (parameters
+    '("const-char*" "copyright")
+  )
+)
+
+(define-method get_license_type
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_license_type")
+  (return-type "GtkLicense")
+)
+
+(define-method set_license_type
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_license_type")
+  (return-type "none")
+  (parameters
+    '("GtkLicense" "license_type")
+  )
+)
+
+(define-method get_license
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_get_license")
+  (return-type "const-char*")
+)
+
+(define-method set_license
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_set_license")
+  (return-type "none")
+  (parameters
+    '("const-char*" "license")
+  )
+)
+
+(define-method add_legal_section
+  (of-object "AdwAboutDialog")
+  (c-name "adw_about_dialog_add_legal_section")
+  (return-type "none")
+  (parameters
+    '("const-char*" "title")
+    '("const-char*" "copyright")
+    '("GtkLicense" "license_type")
+    '("const-char*" "license")
+  )
+)
+
+(define-function adw_show_about_dialog
+  (c-name "adw_show_about_dialog")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "parent")
+    '("const-char*" "first_property_name")
+  )
+  (varargs #t)
+)
+
+(define-function adw_show_about_dialog_from_appdata
+  (c-name "adw_show_about_dialog_from_appdata")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "parent")
+    '("const-char*" "resource_path")
+    '("const-char*" "release_notes_version")
+    '("const-char*" "first_property_name")
+  )
+  (varargs #t)
+)
+
+
+
 ;; From adw-about-window.h
 
 (define-function adw_about_window_new
   (c-name "adw_about_window_new")
   (is-constructor-of "AdwAboutWindow")
   (return-type "GtkWidget*")
+)
+
+(define-function adw_about_window_new_from_appdata
+  (c-name "adw_about_window_new_from_appdata")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-char*" "resource_path")
+    '("const-char*" "release_notes_version")
+  )
 )
 
 (define-method get_application_name
@@ -553,6 +1000,18 @@
   (varargs #t)
 )
 
+(define-function adw_show_about_window_from_appdata
+  (c-name "adw_show_about_window_from_appdata")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "parent")
+    '("const-char*" "resource_path")
+    '("const-char*" "release_notes_version")
+    '("const-char*" "first_property_name")
+  )
+  (varargs #t)
+)
+
 
 
 ;; From adw-action-row.h
@@ -665,6 +1124,21 @@
   )
 )
 
+(define-method get_subtitle_selectable
+  (of-object "AdwActionRow")
+  (c-name "adw_action_row_get_subtitle_selectable")
+  (return-type "gboolean")
+)
+
+(define-method set_subtitle_selectable
+  (of-object "AdwActionRow")
+  (c-name "adw_action_row_set_subtitle_selectable")
+  (return-type "none")
+  (parameters
+    '("gboolean" "subtitle_selectable")
+  )
+)
+
 (define-method activate
   (of-object "AdwActionRow")
   (c-name "adw_action_row_activate")
@@ -674,6 +1148,281 @@
 
 
 ;; From adwaita.h
+
+
+
+;; From adw-alert-dialog.h
+
+(define-function adw_alert_dialog_new
+  (c-name "adw_alert_dialog_new")
+  (is-constructor-of "AdwAlertDialog")
+  (return-type "AdwDialog*")
+  (parameters
+    '("const-char*" "heading")
+    '("const-char*" "body")
+  )
+)
+
+(define-method get_heading
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_heading")
+  (return-type "const-char*")
+)
+
+(define-method set_heading
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_heading")
+  (return-type "none")
+  (parameters
+    '("const-char*" "heading")
+  )
+)
+
+(define-method get_heading_use_markup
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_heading_use_markup")
+  (return-type "gboolean")
+)
+
+(define-method set_heading_use_markup
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_heading_use_markup")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_markup")
+  )
+)
+
+(define-method format_heading
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_format_heading")
+  (return-type "none")
+  (parameters
+    '("const-char*" "format")
+  )
+  (varargs #t)
+)
+
+(define-method format_heading_markup
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_format_heading_markup")
+  (return-type "none")
+  (parameters
+    '("const-char*" "format")
+  )
+  (varargs #t)
+)
+
+(define-method get_body
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_body")
+  (return-type "const-char*")
+)
+
+(define-method set_body
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_body")
+  (return-type "none")
+  (parameters
+    '("const-char*" "body")
+  )
+)
+
+(define-method get_body_use_markup
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_body_use_markup")
+  (return-type "gboolean")
+)
+
+(define-method set_body_use_markup
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_body_use_markup")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_markup")
+  )
+)
+
+(define-method format_body
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_format_body")
+  (return-type "none")
+  (parameters
+    '("const-char*" "format")
+  )
+  (varargs #t)
+)
+
+(define-method format_body_markup
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_format_body_markup")
+  (return-type "none")
+  (parameters
+    '("const-char*" "format")
+  )
+  (varargs #t)
+)
+
+(define-method get_extra_child
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_extra_child")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_extra_child
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_extra_child")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method add_response
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_add_response")
+  (return-type "none")
+  (parameters
+    '("const-char*" "id")
+    '("const-char*" "label")
+  )
+)
+
+(define-method add_responses
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_add_responses")
+  (return-type "none")
+  (parameters
+    '("const-char*" "first_id")
+  )
+  (varargs #t)
+)
+
+(define-method remove_response
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_remove_response")
+  (return-type "none")
+  (parameters
+    '("const-char*" "id")
+  )
+)
+
+(define-method get_response_label
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_response_label")
+  (return-type "const-char*")
+  (parameters
+    '("const-char*" "response")
+  )
+)
+
+(define-method set_response_label
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_response_label")
+  (return-type "none")
+  (parameters
+    '("const-char*" "response")
+    '("const-char*" "label")
+  )
+)
+
+(define-method get_response_appearance
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_response_appearance")
+  (return-type "AdwResponseAppearance")
+  (parameters
+    '("const-char*" "response")
+  )
+)
+
+(define-method set_response_appearance
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_response_appearance")
+  (return-type "none")
+  (parameters
+    '("const-char*" "response")
+    '("AdwResponseAppearance" "appearance")
+  )
+)
+
+(define-method get_response_enabled
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_response_enabled")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "response")
+  )
+)
+
+(define-method set_response_enabled
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_response_enabled")
+  (return-type "none")
+  (parameters
+    '("const-char*" "response")
+    '("gboolean" "enabled")
+  )
+)
+
+(define-method get_default_response
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_default_response")
+  (return-type "const-char*")
+)
+
+(define-method set_default_response
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_default_response")
+  (return-type "none")
+  (parameters
+    '("const-char*" "response")
+  )
+)
+
+(define-method get_close_response
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_get_close_response")
+  (return-type "const-char*")
+)
+
+(define-method set_close_response
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_set_close_response")
+  (return-type "none")
+  (parameters
+    '("const-char*" "response")
+  )
+)
+
+(define-method has_response
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_has_response")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "response")
+  )
+)
+
+(define-method choose
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_choose")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "parent")
+    '("GCancellable*" "cancellable")
+    '("GAsyncReadyCallback" "callback")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-method choose_finish
+  (of-object "AdwAlertDialog")
+  (c-name "adw_alert_dialog_choose_finish")
+  (return-type "const-char*")
+  (parameters
+    '("GAsyncResult*" "result")
+  )
+)
 
 
 
@@ -740,6 +1489,21 @@
   (of-object "AdwAnimation")
   (c-name "adw_animation_skip")
   (return-type "none")
+)
+
+(define-method get_follow_enable_animations_setting
+  (of-object "AdwAnimation")
+  (c-name "adw_animation_get_follow_enable_animations_setting")
+  (return-type "gboolean")
+)
+
+(define-method set_follow_enable_animations_setting
+  (of-object "AdwAnimation")
+  (c-name "adw_animation_set_follow_enable_animations_setting")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
 )
 
 
@@ -858,6 +1622,33 @@
   (return-type "GtkWidget*")
 )
 
+(define-method add_breakpoint
+  (of-object "AdwApplicationWindow")
+  (c-name "adw_application_window_add_breakpoint")
+  (return-type "none")
+  (parameters
+    '("AdwBreakpoint*" "breakpoint")
+  )
+)
+
+(define-method get_current_breakpoint
+  (of-object "AdwApplicationWindow")
+  (c-name "adw_application_window_get_current_breakpoint")
+  (return-type "AdwBreakpoint*")
+)
+
+(define-method get_dialogs
+  (of-object "AdwApplicationWindow")
+  (c-name "adw_application_window_get_dialogs")
+  (return-type "GListModel*")
+)
+
+(define-method get_visible_dialog
+  (of-object "AdwApplicationWindow")
+  (c-name "adw_application_window_get_visible_dialog")
+  (return-type "AdwDialog*")
+)
+
 
 
 ;; From adw-avatar.h
@@ -959,6 +1750,79 @@
 
 
 
+;; From adw-banner.h
+
+(define-function adw_banner_new
+  (c-name "adw_banner_new")
+  (is-constructor-of "AdwBanner")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-char*" "title")
+  )
+)
+
+(define-method get_title
+  (of-object "AdwBanner")
+  (c-name "adw_banner_get_title")
+  (return-type "const-char*")
+)
+
+(define-method set_title
+  (of-object "AdwBanner")
+  (c-name "adw_banner_set_title")
+  (return-type "none")
+  (parameters
+    '("const-char*" "title")
+  )
+)
+
+(define-method get_button_label
+  (of-object "AdwBanner")
+  (c-name "adw_banner_get_button_label")
+  (return-type "const-char*")
+)
+
+(define-method set_button_label
+  (of-object "AdwBanner")
+  (c-name "adw_banner_set_button_label")
+  (return-type "none")
+  (parameters
+    '("const-char*" "label")
+  )
+)
+
+(define-method get_revealed
+  (of-object "AdwBanner")
+  (c-name "adw_banner_get_revealed")
+  (return-type "gboolean")
+)
+
+(define-method set_revealed
+  (of-object "AdwBanner")
+  (c-name "adw_banner_set_revealed")
+  (return-type "none")
+  (parameters
+    '("gboolean" "revealed")
+  )
+)
+
+(define-method get_use_markup
+  (of-object "AdwBanner")
+  (c-name "adw_banner_get_use_markup")
+  (return-type "gboolean")
+)
+
+(define-method set_use_markup
+  (of-object "AdwBanner")
+  (c-name "adw_banner_set_use_markup")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_markup")
+  )
+)
+
+
+
 ;; From adw-bin.h
 
 (define-function adw_bin_new
@@ -979,6 +1843,197 @@
   (return-type "none")
   (parameters
     '("GtkWidget*" "child")
+  )
+)
+
+
+
+;; From adw-breakpoint-bin.h
+
+(define-function adw_breakpoint_bin_new
+  (c-name "adw_breakpoint_bin_new")
+  (is-constructor-of "AdwBreakpointBin")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_child
+  (of-object "AdwBreakpointBin")
+  (c-name "adw_breakpoint_bin_get_child")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_child
+  (of-object "AdwBreakpointBin")
+  (c-name "adw_breakpoint_bin_set_child")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method add_breakpoint
+  (of-object "AdwBreakpointBin")
+  (c-name "adw_breakpoint_bin_add_breakpoint")
+  (return-type "none")
+  (parameters
+    '("AdwBreakpoint*" "breakpoint")
+  )
+)
+
+(define-method remove_breakpoint
+  (of-object "AdwBreakpointBin")
+  (c-name "adw_breakpoint_bin_remove_breakpoint")
+  (return-type "none")
+  (parameters
+    '("AdwBreakpoint*" "breakpoint")
+  )
+)
+
+(define-method get_current_breakpoint
+  (of-object "AdwBreakpointBin")
+  (c-name "adw_breakpoint_bin_get_current_breakpoint")
+  (return-type "AdwBreakpoint*")
+)
+
+
+
+;; From adw-breakpoint.h
+
+(define-function adw_breakpoint_condition_get_type
+  (c-name "adw_breakpoint_condition_get_type")
+  (return-type "GType")
+)
+
+(define-function adw_breakpoint_condition_new_length
+  (c-name "adw_breakpoint_condition_new_length")
+  (return-type "AdwBreakpointCondition*")
+  (parameters
+    '("AdwBreakpointConditionLengthType" "type")
+    '("double" "value")
+    '("AdwLengthUnit" "unit")
+  )
+)
+
+(define-function adw_breakpoint_condition_new_ratio
+  (c-name "adw_breakpoint_condition_new_ratio")
+  (return-type "AdwBreakpointCondition*")
+  (parameters
+    '("AdwBreakpointConditionRatioType" "type")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-method new_and
+  (of-object "AdwBreakpointCondition")
+  (c-name "adw_breakpoint_condition_new_and")
+  (return-type "AdwBreakpointCondition*")
+  (parameters
+    '("AdwBreakpointCondition*" "condition_2")
+  )
+)
+
+(define-method new_or
+  (of-object "AdwBreakpointCondition")
+  (c-name "adw_breakpoint_condition_new_or")
+  (return-type "AdwBreakpointCondition*")
+  (parameters
+    '("AdwBreakpointCondition*" "condition_2")
+  )
+)
+
+(define-method copy
+  (of-object "AdwBreakpointCondition")
+  (c-name "adw_breakpoint_condition_copy")
+  (return-type "AdwBreakpointCondition*")
+)
+
+(define-method free
+  (of-object "AdwBreakpointCondition")
+  (c-name "adw_breakpoint_condition_free")
+  (return-type "none")
+)
+
+(define-function adw_breakpoint_condition_parse
+  (c-name "adw_breakpoint_condition_parse")
+  (return-type "AdwBreakpointCondition*")
+  (parameters
+    '("const-char*" "str")
+  )
+)
+
+(define-method to_string
+  (of-object "AdwBreakpointCondition")
+  (c-name "adw_breakpoint_condition_to_string")
+  (return-type "char*")
+)
+
+(define-function adw_breakpoint_new
+  (c-name "adw_breakpoint_new")
+  (is-constructor-of "AdwBreakpoint")
+  (return-type "AdwBreakpoint*")
+  (parameters
+    '("AdwBreakpointCondition*" "condition")
+  )
+)
+
+(define-method get_condition
+  (of-object "AdwBreakpoint")
+  (c-name "adw_breakpoint_get_condition")
+  (return-type "AdwBreakpointCondition*")
+)
+
+(define-method set_condition
+  (of-object "AdwBreakpoint")
+  (c-name "adw_breakpoint_set_condition")
+  (return-type "none")
+  (parameters
+    '("AdwBreakpointCondition*" "condition")
+  )
+)
+
+(define-method add_setter
+  (of-object "AdwBreakpoint")
+  (c-name "adw_breakpoint_add_setter")
+  (return-type "none")
+  (parameters
+    '("GObject*" "object")
+    '("const-char*" "property")
+    '("const-GValue*" "value")
+  )
+)
+
+(define-method add_setters
+  (of-object "AdwBreakpoint")
+  (c-name "adw_breakpoint_add_setters")
+  (return-type "none")
+  (parameters
+    '("GObject*" "first_object")
+    '("const-char*" "first_property")
+  )
+  (varargs #t)
+)
+
+(define-method add_settersv
+  (of-object "AdwBreakpoint")
+  (c-name "adw_breakpoint_add_settersv")
+  (return-type "none")
+  (parameters
+    '("int" "n_setters")
+    '("GObject*[]" "objects")
+    '("const-char*[]" "names")
+    '("const-GValue*[]" "values")
+  )
+)
+
+(define-method add_setters_valist
+  (of-object "AdwBreakpoint")
+  (c-name "adw_breakpoint_add_setters_valist")
+  (return-type "none")
+  (parameters
+    '("GObject*" "first_object")
+    '("const-char*" "first_property")
+    '("va_list" "args")
   )
 )
 
@@ -1034,6 +2089,21 @@
   (return-type "none")
   (parameters
     '("gboolean" "use_underline")
+  )
+)
+
+(define-method get_can_shrink
+  (of-object "AdwButtonContent")
+  (c-name "adw_button_content_get_can_shrink")
+  (return-type "gboolean")
+)
+
+(define-method set_can_shrink
+  (of-object "AdwButtonContent")
+  (c-name "adw_button_content_set_can_shrink")
+  (return-type "none")
+  (parameters
+    '("gboolean" "can_shrink")
   )
 )
 
@@ -1335,6 +2405,21 @@
   )
 )
 
+(define-method get_unit
+  (of-object "AdwClamp")
+  (c-name "adw_clamp_get_unit")
+  (return-type "AdwLengthUnit")
+)
+
+(define-method set_unit
+  (of-object "AdwClamp")
+  (c-name "adw_clamp_set_unit")
+  (return-type "none")
+  (parameters
+    '("AdwLengthUnit" "unit")
+  )
+)
+
 
 
 ;; From adw-clamp-layout.h
@@ -1372,6 +2457,21 @@
   (return-type "none")
   (parameters
     '("int" "tightening_threshold")
+  )
+)
+
+(define-method get_unit
+  (of-object "AdwClampLayout")
+  (c-name "adw_clamp_layout_get_unit")
+  (return-type "AdwLengthUnit")
+)
+
+(define-method set_unit
+  (of-object "AdwClampLayout")
+  (c-name "adw_clamp_layout_set_unit")
+  (return-type "none")
+  (parameters
+    '("AdwLengthUnit" "unit")
   )
 )
 
@@ -1427,6 +2527,21 @@
   (return-type "none")
   (parameters
     '("int" "tightening_threshold")
+  )
+)
+
+(define-method get_unit
+  (of-object "AdwClampScrollable")
+  (c-name "adw_clamp_scrollable_get_unit")
+  (return-type "AdwLengthUnit")
+)
+
+(define-method set_unit
+  (of-object "AdwClampScrollable")
+  (c-name "adw_clamp_scrollable_set_unit")
+  (return-type "none")
+  (parameters
+    '("AdwLengthUnit" "unit")
   )
 )
 
@@ -1536,9 +2651,201 @@
   )
 )
 
+(define-method get_enable_search
+  (of-object "AdwComboRow")
+  (c-name "adw_combo_row_get_enable_search")
+  (return-type "gboolean")
+)
+
+(define-method set_enable_search
+  (of-object "AdwComboRow")
+  (c-name "adw_combo_row_set_enable_search")
+  (return-type "none")
+  (parameters
+    '("gboolean" "enable_search")
+  )
+)
 
 
-;; From adw-deprecation-macros.h
+
+;; From adw-dialog.h
+
+(define-function adw_dialog_new
+  (c-name "adw_dialog_new")
+  (is-constructor-of "AdwDialog")
+  (return-type "AdwDialog*")
+)
+
+(define-method get_child
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_child")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_child
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_set_child")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method get_title
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_title")
+  (return-type "const-char*")
+)
+
+(define-method set_title
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_set_title")
+  (return-type "none")
+  (parameters
+    '("const-char*" "title")
+  )
+)
+
+(define-method get_can_close
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_can_close")
+  (return-type "gboolean")
+)
+
+(define-method set_can_close
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_set_can_close")
+  (return-type "none")
+  (parameters
+    '("gboolean" "can_close")
+  )
+)
+
+(define-method get_content_width
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_content_width")
+  (return-type "int")
+)
+
+(define-method set_content_width
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_set_content_width")
+  (return-type "none")
+  (parameters
+    '("int" "content_width")
+  )
+)
+
+(define-method get_content_height
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_content_height")
+  (return-type "int")
+)
+
+(define-method set_content_height
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_set_content_height")
+  (return-type "none")
+  (parameters
+    '("int" "content_height")
+  )
+)
+
+(define-method get_follows_content_size
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_follows_content_size")
+  (return-type "gboolean")
+)
+
+(define-method set_follows_content_size
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_set_follows_content_size")
+  (return-type "none")
+  (parameters
+    '("gboolean" "follows_content_size")
+  )
+)
+
+(define-method get_presentation_mode
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_presentation_mode")
+  (return-type "AdwDialogPresentationMode")
+)
+
+(define-method set_presentation_mode
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_set_presentation_mode")
+  (return-type "none")
+  (parameters
+    '("AdwDialogPresentationMode" "presentation_mode")
+  )
+)
+
+(define-method get_focus
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_focus")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_focus
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_set_focus")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "focus")
+  )
+)
+
+(define-method get_default_widget
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_default_widget")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_default_widget
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_set_default_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "default_widget")
+  )
+)
+
+(define-method close
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_close")
+  (return-type "gboolean")
+)
+
+(define-method force_close
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_force_close")
+  (return-type "none")
+)
+
+(define-method add_breakpoint
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_add_breakpoint")
+  (return-type "none")
+  (parameters
+    '("AdwBreakpoint*" "breakpoint")
+  )
+)
+
+(define-method get_current_breakpoint
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_get_current_breakpoint")
+  (return-type "AdwBreakpoint*")
+)
+
+(define-method present
+  (of-object "AdwDialog")
+  (c-name "adw_dialog_present")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "parent")
+  )
+)
 
 
 
@@ -1680,6 +2987,18 @@
   )
 )
 
+(define-method get_text_length
+  (of-object "AdwEntryRow")
+  (c-name "adw_entry_row_get_text_length")
+  (return-type "guint")
+)
+
+(define-method grab_focus_without_selecting
+  (of-object "AdwEntryRow")
+  (c-name "adw_entry_row_grab_focus_without_selecting")
+  (return-type "gboolean")
+)
+
 
 
 ;; From adw-enum-list-model.h
@@ -1730,6 +3049,26 @@
 
 ;; From adw-enums.h
 
+(define-function adw_animation_state_get_type
+  (c-name "adw_animation_state_get_type")
+  (return-type "GType")
+)
+
+(define-function adw_breakpoint_condition_length_type_get_type
+  (c-name "adw_breakpoint_condition_length_type_get_type")
+  (return-type "GType")
+)
+
+(define-function adw_breakpoint_condition_ratio_type_get_type
+  (c-name "adw_breakpoint_condition_ratio_type_get_type")
+  (return-type "GType")
+)
+
+(define-function adw_dialog_presentation_mode_get_type
+  (c-name "adw_dialog_presentation_mode_get_type")
+  (return-type "GType")
+)
+
 (define-function adw_easing_get_type
   (c-name "adw_easing_get_type")
   (return-type "GType")
@@ -1760,8 +3099,8 @@
   (return-type "GType")
 )
 
-(define-function adw_response_appearance_get_type
-  (c-name "adw_response_appearance_get_type")
+(define-function adw_length_unit_get_type
+  (c-name "adw_length_unit_get_type")
   (return-type "GType")
 )
 
@@ -1787,6 +3126,11 @@
 
 (define-function adw_toast_priority_get_type
   (c-name "adw_toast_priority_get_type")
+  (return-type "GType")
+)
+
+(define-function adw_toolbar_style_get_type
+  (c-name "adw_toolbar_style_get_type")
   (return-type "GType")
 )
 
@@ -1817,6 +3161,15 @@
 (define-method add_prefix
   (of-object "AdwExpanderRow")
   (c-name "adw_expander_row_add_prefix")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-method add_suffix
+  (of-object "AdwExpanderRow")
+  (c-name "adw_expander_row_add_suffix")
   (return-type "none")
   (parameters
     '("GtkWidget*" "widget")
@@ -1913,6 +3266,36 @@
   (return-type "none")
   (parameters
     '("gboolean" "show_enable_switch")
+  )
+)
+
+(define-method get_title_lines
+  (of-object "AdwExpanderRow")
+  (c-name "adw_expander_row_get_title_lines")
+  (return-type "int")
+)
+
+(define-method set_title_lines
+  (of-object "AdwExpanderRow")
+  (c-name "adw_expander_row_set_title_lines")
+  (return-type "none")
+  (parameters
+    '("int" "title_lines")
+  )
+)
+
+(define-method get_subtitle_lines
+  (of-object "AdwExpanderRow")
+  (c-name "adw_expander_row_get_subtitle_lines")
+  (return-type "int")
+)
+
+(define-method set_subtitle_lines
+  (of-object "AdwExpanderRow")
+  (c-name "adw_expander_row_set_subtitle_lines")
+  (return-type "none")
+  (parameters
+    '("int" "subtitle_lines")
   )
 )
 
@@ -2234,6 +3617,21 @@
   )
 )
 
+(define-method get_show_back_button
+  (of-object "AdwHeaderBar")
+  (c-name "adw_header_bar_get_show_back_button")
+  (return-type "gboolean")
+)
+
+(define-method set_show_back_button
+  (of-object "AdwHeaderBar")
+  (c-name "adw_header_bar_set_show_back_button")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_back_button")
+  )
+)
+
 (define-method get_decoration_layout
   (of-object "AdwHeaderBar")
   (c-name "adw_header_bar_get_decoration_layout")
@@ -2261,6 +3659,21 @@
   (return-type "none")
   (parameters
     '("AdwCenteringPolicy" "centering_policy")
+  )
+)
+
+(define-method get_show_title
+  (of-object "AdwHeaderBar")
+  (c-name "adw_header_bar_get_show_title")
+  (return-type "gboolean")
+)
+
+(define-method set_show_title
+  (of-object "AdwHeaderBar")
+  (c-name "adw_header_bar_set_show_title")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_title")
   )
 )
 
@@ -2563,6 +3976,30 @@
 
 
 
+;; From adw-length-unit.h
+
+(define-method to_px
+  (of-object "AdwLengthUnit")
+  (c-name "adw_length_unit_to_px")
+  (return-type "double")
+  (parameters
+    '("double" "value")
+    '("GtkSettings*" "settings")
+  )
+)
+
+(define-method from_px
+  (of-object "AdwLengthUnit")
+  (c-name "adw_length_unit_from_px")
+  (return-type "double")
+  (parameters
+    '("double" "value")
+    '("GtkSettings*" "settings")
+  )
+)
+
+
+
 ;; From adw-main.h
 
 (define-function adw_init
@@ -2715,6 +4152,15 @@
   )
 )
 
+(define-method remove_response
+  (of-object "AdwMessageDialog")
+  (c-name "adw_message_dialog_remove_response")
+  (return-type "none")
+  (parameters
+    '("const-char*" "id")
+  )
+)
+
 (define-method add_responses
   (of-object "AdwMessageDialog")
   (c-name "adw_message_dialog_add_responses")
@@ -2830,9 +4276,579 @@
   )
 )
 
+(define-method choose
+  (of-object "AdwMessageDialog")
+  (c-name "adw_message_dialog_choose")
+  (return-type "none")
+  (parameters
+    '("GCancellable*" "cancellable")
+    '("GAsyncReadyCallback" "callback")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-method choose_finish
+  (of-object "AdwMessageDialog")
+  (c-name "adw_message_dialog_choose_finish")
+  (return-type "const-char*")
+  (parameters
+    '("GAsyncResult*" "result")
+  )
+)
+
 
 
 ;; From adw-navigation-direction.h
+
+
+
+;; From adw-navigation-split-view.h
+
+(define-function adw_navigation_split_view_new
+  (c-name "adw_navigation_split_view_new")
+  (is-constructor-of "AdwNavigationSplitView")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_sidebar
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_get_sidebar")
+  (return-type "AdwNavigationPage*")
+)
+
+(define-method set_sidebar
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_set_sidebar")
+  (return-type "none")
+  (parameters
+    '("AdwNavigationPage*" "sidebar")
+  )
+)
+
+(define-method get_content
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_get_content")
+  (return-type "AdwNavigationPage*")
+)
+
+(define-method set_content
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_set_content")
+  (return-type "none")
+  (parameters
+    '("AdwNavigationPage*" "content")
+  )
+)
+
+(define-method get_collapsed
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_get_collapsed")
+  (return-type "gboolean")
+)
+
+(define-method set_collapsed
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_set_collapsed")
+  (return-type "none")
+  (parameters
+    '("gboolean" "collapsed")
+  )
+)
+
+(define-method get_show_content
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_get_show_content")
+  (return-type "gboolean")
+)
+
+(define-method set_show_content
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_set_show_content")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_content")
+  )
+)
+
+(define-method get_min_sidebar_width
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_get_min_sidebar_width")
+  (return-type "double")
+)
+
+(define-method set_min_sidebar_width
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_set_min_sidebar_width")
+  (return-type "none")
+  (parameters
+    '("double" "width")
+  )
+)
+
+(define-method get_max_sidebar_width
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_get_max_sidebar_width")
+  (return-type "double")
+)
+
+(define-method set_max_sidebar_width
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_set_max_sidebar_width")
+  (return-type "none")
+  (parameters
+    '("double" "width")
+  )
+)
+
+(define-method get_sidebar_width_fraction
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_get_sidebar_width_fraction")
+  (return-type "double")
+)
+
+(define-method set_sidebar_width_fraction
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_set_sidebar_width_fraction")
+  (return-type "none")
+  (parameters
+    '("double" "fraction")
+  )
+)
+
+(define-method get_sidebar_width_unit
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_get_sidebar_width_unit")
+  (return-type "AdwLengthUnit")
+)
+
+(define-method set_sidebar_width_unit
+  (of-object "AdwNavigationSplitView")
+  (c-name "adw_navigation_split_view_set_sidebar_width_unit")
+  (return-type "none")
+  (parameters
+    '("AdwLengthUnit" "unit")
+  )
+)
+
+
+
+;; From adw-navigation-view.h
+
+(define-function adw_navigation_page_new
+  (c-name "adw_navigation_page_new")
+  (is-constructor-of "AdwNavigationPage")
+  (return-type "AdwNavigationPage*")
+  (parameters
+    '("GtkWidget*" "child")
+    '("const-char*" "title")
+  )
+)
+
+(define-function adw_navigation_page_new_with_tag
+  (c-name "adw_navigation_page_new_with_tag")
+  (return-type "AdwNavigationPage*")
+  (parameters
+    '("GtkWidget*" "child")
+    '("const-char*" "title")
+    '("const-char*" "tag")
+  )
+)
+
+(define-method get_child
+  (of-object "AdwNavigationPage")
+  (c-name "adw_navigation_page_get_child")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_child
+  (of-object "AdwNavigationPage")
+  (c-name "adw_navigation_page_set_child")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method get_tag
+  (of-object "AdwNavigationPage")
+  (c-name "adw_navigation_page_get_tag")
+  (return-type "const-char*")
+)
+
+(define-method set_tag
+  (of-object "AdwNavigationPage")
+  (c-name "adw_navigation_page_set_tag")
+  (return-type "none")
+  (parameters
+    '("const-char*" "tag")
+  )
+)
+
+(define-method get_title
+  (of-object "AdwNavigationPage")
+  (c-name "adw_navigation_page_get_title")
+  (return-type "const-char*")
+)
+
+(define-method set_title
+  (of-object "AdwNavigationPage")
+  (c-name "adw_navigation_page_set_title")
+  (return-type "none")
+  (parameters
+    '("const-char*" "title")
+  )
+)
+
+(define-method get_can_pop
+  (of-object "AdwNavigationPage")
+  (c-name "adw_navigation_page_get_can_pop")
+  (return-type "gboolean")
+)
+
+(define-method set_can_pop
+  (of-object "AdwNavigationPage")
+  (c-name "adw_navigation_page_set_can_pop")
+  (return-type "none")
+  (parameters
+    '("gboolean" "can_pop")
+  )
+)
+
+(define-function adw_navigation_view_new
+  (c-name "adw_navigation_view_new")
+  (is-constructor-of "AdwNavigationView")
+  (return-type "GtkWidget*")
+)
+
+(define-method add
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_add")
+  (return-type "none")
+  (parameters
+    '("AdwNavigationPage*" "page")
+  )
+)
+
+(define-method remove
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_remove")
+  (return-type "none")
+  (parameters
+    '("AdwNavigationPage*" "page")
+  )
+)
+
+(define-method find_page
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_find_page")
+  (return-type "AdwNavigationPage*")
+  (parameters
+    '("const-char*" "tag")
+  )
+)
+
+(define-method push
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_push")
+  (return-type "none")
+  (parameters
+    '("AdwNavigationPage*" "page")
+  )
+)
+
+(define-method push_by_tag
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_push_by_tag")
+  (return-type "none")
+  (parameters
+    '("const-char*" "tag")
+  )
+)
+
+(define-method pop
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_pop")
+  (return-type "gboolean")
+)
+
+(define-method pop_to_page
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_pop_to_page")
+  (return-type "gboolean")
+  (parameters
+    '("AdwNavigationPage*" "page")
+  )
+)
+
+(define-method pop_to_tag
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_pop_to_tag")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "tag")
+  )
+)
+
+(define-method replace
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_replace")
+  (return-type "none")
+  (parameters
+    '("AdwNavigationPage**" "pages")
+    '("int" "n_pages")
+  )
+)
+
+(define-method replace_with_tags
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_replace_with_tags")
+  (return-type "none")
+  (parameters
+    '("const-char*-const*" "tags")
+    '("int" "n_tags")
+  )
+)
+
+(define-method get_visible_page
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_get_visible_page")
+  (return-type "AdwNavigationPage*")
+)
+
+(define-method get_previous_page
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_get_previous_page")
+  (return-type "AdwNavigationPage*")
+  (parameters
+    '("AdwNavigationPage*" "page")
+  )
+)
+
+(define-method get_animate_transitions
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_get_animate_transitions")
+  (return-type "gboolean")
+)
+
+(define-method set_animate_transitions
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_set_animate_transitions")
+  (return-type "none")
+  (parameters
+    '("gboolean" "animate_transitions")
+  )
+)
+
+(define-method get_pop_on_escape
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_get_pop_on_escape")
+  (return-type "gboolean")
+)
+
+(define-method set_pop_on_escape
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_set_pop_on_escape")
+  (return-type "none")
+  (parameters
+    '("gboolean" "pop_on_escape")
+  )
+)
+
+(define-method get_navigation_stack
+  (of-object "AdwNavigationView")
+  (c-name "adw_navigation_view_get_navigation_stack")
+  (return-type "GListModel*")
+)
+
+
+
+;; From adw-overlay-split-view.h
+
+(define-function adw_overlay_split_view_new
+  (c-name "adw_overlay_split_view_new")
+  (is-constructor-of "AdwOverlaySplitView")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_sidebar
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_sidebar")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_sidebar
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_sidebar")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "sidebar")
+  )
+)
+
+(define-method get_content
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_content")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_content
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_content")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "content")
+  )
+)
+
+(define-method get_collapsed
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_collapsed")
+  (return-type "gboolean")
+)
+
+(define-method set_collapsed
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_collapsed")
+  (return-type "none")
+  (parameters
+    '("gboolean" "collapsed")
+  )
+)
+
+(define-method get_sidebar_position
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_sidebar_position")
+  (return-type "GtkPackType")
+)
+
+(define-method set_sidebar_position
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_sidebar_position")
+  (return-type "none")
+  (parameters
+    '("GtkPackType" "position")
+  )
+)
+
+(define-method get_show_sidebar
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_show_sidebar")
+  (return-type "gboolean")
+)
+
+(define-method set_show_sidebar
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_show_sidebar")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_sidebar")
+  )
+)
+
+(define-method get_pin_sidebar
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_pin_sidebar")
+  (return-type "gboolean")
+)
+
+(define-method set_pin_sidebar
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_pin_sidebar")
+  (return-type "none")
+  (parameters
+    '("gboolean" "pin_sidebar")
+  )
+)
+
+(define-method get_enable_show_gesture
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_enable_show_gesture")
+  (return-type "gboolean")
+)
+
+(define-method set_enable_show_gesture
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_enable_show_gesture")
+  (return-type "none")
+  (parameters
+    '("gboolean" "enable_show_gesture")
+  )
+)
+
+(define-method get_enable_hide_gesture
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_enable_hide_gesture")
+  (return-type "gboolean")
+)
+
+(define-method set_enable_hide_gesture
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_enable_hide_gesture")
+  (return-type "none")
+  (parameters
+    '("gboolean" "enable_hide_gesture")
+  )
+)
+
+(define-method get_min_sidebar_width
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_min_sidebar_width")
+  (return-type "double")
+)
+
+(define-method set_min_sidebar_width
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_min_sidebar_width")
+  (return-type "none")
+  (parameters
+    '("double" "width")
+  )
+)
+
+(define-method get_max_sidebar_width
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_max_sidebar_width")
+  (return-type "double")
+)
+
+(define-method set_max_sidebar_width
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_max_sidebar_width")
+  (return-type "none")
+  (parameters
+    '("double" "width")
+  )
+)
+
+(define-method get_sidebar_width_fraction
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_sidebar_width_fraction")
+  (return-type "double")
+)
+
+(define-method set_sidebar_width_fraction
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_sidebar_width_fraction")
+  (return-type "none")
+  (parameters
+    '("double" "fraction")
+  )
+)
+
+(define-method get_sidebar_width_unit
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_get_sidebar_width_unit")
+  (return-type "AdwLengthUnit")
+)
+
+(define-method set_sidebar_width_unit
+  (of-object "AdwOverlaySplitView")
+  (c-name "adw_overlay_split_view_set_sidebar_width_unit")
+  (return-type "none")
+  (parameters
+    '("AdwLengthUnit" "unit")
+  )
+)
 
 
 
@@ -2842,6 +4858,103 @@
   (c-name "adw_password_entry_row_new")
   (is-constructor-of "AdwPasswordEntryRow")
   (return-type "GtkWidget*")
+)
+
+
+
+;; From adw-preferences-dialog.h
+
+(define-function adw_preferences_dialog_new
+  (c-name "adw_preferences_dialog_new")
+  (is-constructor-of "AdwPreferencesDialog")
+  (return-type "AdwDialog*")
+)
+
+(define-method add
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_add")
+  (return-type "none")
+  (parameters
+    '("AdwPreferencesPage*" "page")
+  )
+)
+
+(define-method remove
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_remove")
+  (return-type "none")
+  (parameters
+    '("AdwPreferencesPage*" "page")
+  )
+)
+
+(define-method get_visible_page
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_get_visible_page")
+  (return-type "AdwPreferencesPage*")
+)
+
+(define-method set_visible_page
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_set_visible_page")
+  (return-type "none")
+  (parameters
+    '("AdwPreferencesPage*" "page")
+  )
+)
+
+(define-method get_visible_page_name
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_get_visible_page_name")
+  (return-type "const-char*")
+)
+
+(define-method set_visible_page_name
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_set_visible_page_name")
+  (return-type "none")
+  (parameters
+    '("const-char*" "name")
+  )
+)
+
+(define-method get_search_enabled
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_get_search_enabled")
+  (return-type "gboolean")
+)
+
+(define-method set_search_enabled
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_set_search_enabled")
+  (return-type "none")
+  (parameters
+    '("gboolean" "search_enabled")
+  )
+)
+
+(define-method push_subpage
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_push_subpage")
+  (return-type "none")
+  (parameters
+    '("AdwNavigationPage*" "page")
+  )
+)
+
+(define-method pop_subpage
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_pop_subpage")
+  (return-type "gboolean")
+)
+
+(define-method add_toast
+  (of-object "AdwPreferencesDialog")
+  (c-name "adw_preferences_dialog_add_toast")
+  (return-type "none")
+  (parameters
+    '("AdwToast*" "toast")
+  )
 )
 
 
@@ -2975,6 +5088,21 @@
   )
 )
 
+(define-method get_description
+  (of-object "AdwPreferencesPage")
+  (c-name "adw_preferences_page_get_description")
+  (return-type "const-char*")
+)
+
+(define-method set_description
+  (of-object "AdwPreferencesPage")
+  (c-name "adw_preferences_page_set_description")
+  (return-type "none")
+  (parameters
+    '("const-char*" "description")
+  )
+)
+
 (define-method get_name
   (of-object "AdwPreferencesPage")
   (c-name "adw_preferences_page_get_name")
@@ -3003,6 +5131,12 @@
   (parameters
     '("gboolean" "use_underline")
   )
+)
+
+(define-method scroll_to_top
+  (of-object "AdwPreferencesPage")
+  (c-name "adw_preferences_page_scroll_to_top")
+  (return-type "none")
 )
 
 
@@ -3178,12 +5312,199 @@
   (return-type "none")
 )
 
+(define-method push_subpage
+  (of-object "AdwPreferencesWindow")
+  (c-name "adw_preferences_window_push_subpage")
+  (return-type "none")
+  (parameters
+    '("AdwNavigationPage*" "page")
+  )
+)
+
+(define-method pop_subpage
+  (of-object "AdwPreferencesWindow")
+  (c-name "adw_preferences_window_pop_subpage")
+  (return-type "gboolean")
+)
+
 (define-method add_toast
   (of-object "AdwPreferencesWindow")
   (c-name "adw_preferences_window_add_toast")
   (return-type "none")
   (parameters
     '("AdwToast*" "toast")
+  )
+)
+
+
+
+;; From adw-spin-row.h
+
+(define-function adw_spin_row_new
+  (c-name "adw_spin_row_new")
+  (is-constructor-of "AdwSpinRow")
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkAdjustment*" "adjustment")
+    '("double" "climb_rate")
+    '("guint" "digits")
+  )
+)
+
+(define-function adw_spin_row_new_with_range
+  (c-name "adw_spin_row_new_with_range")
+  (return-type "GtkWidget*")
+  (parameters
+    '("double" "min")
+    '("double" "max")
+    '("double" "step")
+  )
+)
+
+(define-method configure
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_configure")
+  (return-type "none")
+  (parameters
+    '("GtkAdjustment*" "adjustment")
+    '("double" "climb_rate")
+    '("guint" "digits")
+  )
+)
+
+(define-method get_adjustment
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_get_adjustment")
+  (return-type "GtkAdjustment*")
+)
+
+(define-method set_adjustment
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_set_adjustment")
+  (return-type "none")
+  (parameters
+    '("GtkAdjustment*" "adjustment")
+  )
+)
+
+(define-method get_climb_rate
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_get_climb_rate")
+  (return-type "double")
+)
+
+(define-method set_climb_rate
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_set_climb_rate")
+  (return-type "none")
+  (parameters
+    '("double" "climb_rate")
+  )
+)
+
+(define-method get_digits
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_get_digits")
+  (return-type "guint")
+)
+
+(define-method set_digits
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_set_digits")
+  (return-type "none")
+  (parameters
+    '("guint" "digits")
+  )
+)
+
+(define-method get_numeric
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_get_numeric")
+  (return-type "gboolean")
+)
+
+(define-method set_numeric
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_set_numeric")
+  (return-type "none")
+  (parameters
+    '("gboolean" "numeric")
+  )
+)
+
+(define-method get_snap_to_ticks
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_get_snap_to_ticks")
+  (return-type "gboolean")
+)
+
+(define-method set_snap_to_ticks
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_set_snap_to_ticks")
+  (return-type "none")
+  (parameters
+    '("gboolean" "snap_to_ticks")
+  )
+)
+
+(define-method get_update_policy
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_get_update_policy")
+  (return-type "GtkSpinButtonUpdatePolicy")
+)
+
+(define-method set_update_policy
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_set_update_policy")
+  (return-type "none")
+  (parameters
+    '("GtkSpinButtonUpdatePolicy" "policy")
+  )
+)
+
+(define-method get_value
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_get_value")
+  (return-type "double")
+)
+
+(define-method set_value
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_set_value")
+  (return-type "none")
+  (parameters
+    '("double" "value")
+  )
+)
+
+(define-method get_wrap
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_get_wrap")
+  (return-type "gboolean")
+)
+
+(define-method set_wrap
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_set_wrap")
+  (return-type "none")
+  (parameters
+    '("gboolean" "wrap")
+  )
+)
+
+(define-method update
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_update")
+  (return-type "none")
+)
+
+(define-method set_range
+  (of-object "AdwSpinRow")
+  (c-name "adw_spin_row_set_range")
+  (return-type "none")
+  (parameters
+    '("double" "min")
+    '("double" "max")
   )
 )
 
@@ -3254,6 +5575,21 @@
   (return-type "none")
   (parameters
     '("GtkWidget*" "child")
+  )
+)
+
+(define-method get_can_shrink
+  (of-object "AdwSplitButton")
+  (c-name "adw_split_button_get_can_shrink")
+  (return-type "gboolean")
+)
+
+(define-method set_can_shrink
+  (of-object "AdwSplitButton")
+  (c-name "adw_split_button_set_can_shrink")
+  (return-type "none")
+  (parameters
+    '("gboolean" "can_shrink")
   )
 )
 
@@ -3446,6 +5782,24 @@
   (of-object "AdwSpringAnimation")
   (c-name "adw_spring_animation_get_velocity")
   (return-type "double")
+)
+
+(define-method calculate_value
+  (of-object "AdwSpringAnimation")
+  (c-name "adw_spring_animation_calculate_value")
+  (return-type "double")
+  (parameters
+    '("guint" "time")
+  )
+)
+
+(define-method calculate_velocity
+  (of-object "AdwSpringAnimation")
+  (c-name "adw_spring_animation_calculate_velocity")
+  (return-type "double")
+  (parameters
+    '("guint" "time")
+  )
 )
 
 
@@ -3972,12 +6326,82 @@
   )
 )
 
+(define-method get_lower_overshoot
+  (of-object "AdwSwipeTracker")
+  (c-name "adw_swipe_tracker_get_lower_overshoot")
+  (return-type "gboolean")
+)
+
+(define-method set_lower_overshoot
+  (of-object "AdwSwipeTracker")
+  (c-name "adw_swipe_tracker_set_lower_overshoot")
+  (return-type "none")
+  (parameters
+    '("gboolean" "overshoot")
+  )
+)
+
+(define-method get_upper_overshoot
+  (of-object "AdwSwipeTracker")
+  (c-name "adw_swipe_tracker_get_upper_overshoot")
+  (return-type "gboolean")
+)
+
+(define-method set_upper_overshoot
+  (of-object "AdwSwipeTracker")
+  (c-name "adw_swipe_tracker_set_upper_overshoot")
+  (return-type "none")
+  (parameters
+    '("gboolean" "overshoot")
+  )
+)
+
+(define-method get_allow_window_handle
+  (of-object "AdwSwipeTracker")
+  (c-name "adw_swipe_tracker_get_allow_window_handle")
+  (return-type "gboolean")
+)
+
+(define-method set_allow_window_handle
+  (of-object "AdwSwipeTracker")
+  (c-name "adw_swipe_tracker_set_allow_window_handle")
+  (return-type "none")
+  (parameters
+    '("gboolean" "allow_window_handle")
+  )
+)
+
 (define-method shift_position
   (of-object "AdwSwipeTracker")
   (c-name "adw_swipe_tracker_shift_position")
   (return-type "none")
   (parameters
     '("double" "delta")
+  )
+)
+
+
+
+;; From adw-switch-row.h
+
+(define-function adw_switch_row_new
+  (c-name "adw_switch_row_new")
+  (is-constructor-of "AdwSwitchRow")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_active
+  (of-object "AdwSwitchRow")
+  (c-name "adw_switch_row_get_active")
+  (return-type "gboolean")
+)
+
+(define-method set_active
+  (of-object "AdwSwitchRow")
+  (c-name "adw_switch_row_set_active")
+  (return-type "none")
+  (parameters
+    '("gboolean" "is_active")
   )
 )
 
@@ -4098,10 +6522,239 @@
   )
 )
 
+(define-method get_extra_drag_preferred_action
+  (of-object "AdwTabBar")
+  (c-name "adw_tab_bar_get_extra_drag_preferred_action")
+  (return-type "GdkDragAction")
+)
+
+(define-method get_extra_drag_preload
+  (of-object "AdwTabBar")
+  (c-name "adw_tab_bar_get_extra_drag_preload")
+  (return-type "gboolean")
+)
+
+(define-method set_extra_drag_preload
+  (of-object "AdwTabBar")
+  (c-name "adw_tab_bar_set_extra_drag_preload")
+  (return-type "none")
+  (parameters
+    '("gboolean" "preload")
+  )
+)
+
 (define-method get_is_overflowing
   (of-object "AdwTabBar")
   (c-name "adw_tab_bar_get_is_overflowing")
   (return-type "gboolean")
+)
+
+
+
+;; From adw-tab-button.h
+
+(define-function adw_tab_button_new
+  (c-name "adw_tab_button_new")
+  (is-constructor-of "AdwTabButton")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_view
+  (of-object "AdwTabButton")
+  (c-name "adw_tab_button_get_view")
+  (return-type "AdwTabView*")
+)
+
+(define-method set_view
+  (of-object "AdwTabButton")
+  (c-name "adw_tab_button_set_view")
+  (return-type "none")
+  (parameters
+    '("AdwTabView*" "view")
+  )
+)
+
+
+
+;; From adw-tab-overview.h
+
+(define-function adw_tab_overview_new
+  (c-name "adw_tab_overview_new")
+  (is-constructor-of "AdwTabOverview")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_view
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_view")
+  (return-type "AdwTabView*")
+)
+
+(define-method set_view
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_view")
+  (return-type "none")
+  (parameters
+    '("AdwTabView*" "view")
+  )
+)
+
+(define-method get_child
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_child")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_child
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_child")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method get_open
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_open")
+  (return-type "gboolean")
+)
+
+(define-method set_open
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_open")
+  (return-type "none")
+  (parameters
+    '("gboolean" "open")
+  )
+)
+
+(define-method get_inverted
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_inverted")
+  (return-type "gboolean")
+)
+
+(define-method set_inverted
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_inverted")
+  (return-type "none")
+  (parameters
+    '("gboolean" "inverted")
+  )
+)
+
+(define-method get_enable_search
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_enable_search")
+  (return-type "gboolean")
+)
+
+(define-method set_enable_search
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_enable_search")
+  (return-type "none")
+  (parameters
+    '("gboolean" "enable_search")
+  )
+)
+
+(define-method get_search_active
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_search_active")
+  (return-type "gboolean")
+)
+
+(define-method get_enable_new_tab
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_enable_new_tab")
+  (return-type "gboolean")
+)
+
+(define-method set_enable_new_tab
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_enable_new_tab")
+  (return-type "none")
+  (parameters
+    '("gboolean" "enable_new_tab")
+  )
+)
+
+(define-method get_secondary_menu
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_secondary_menu")
+  (return-type "GMenuModel*")
+)
+
+(define-method set_secondary_menu
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_secondary_menu")
+  (return-type "none")
+  (parameters
+    '("GMenuModel*" "secondary_menu")
+  )
+)
+
+(define-method get_show_start_title_buttons
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_show_start_title_buttons")
+  (return-type "gboolean")
+)
+
+(define-method set_show_start_title_buttons
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_show_start_title_buttons")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_start_title_buttons")
+  )
+)
+
+(define-method get_show_end_title_buttons
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_show_end_title_buttons")
+  (return-type "gboolean")
+)
+
+(define-method set_show_end_title_buttons
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_show_end_title_buttons")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_end_title_buttons")
+  )
+)
+
+(define-method setup_extra_drop_target
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_setup_extra_drop_target")
+  (return-type "none")
+  (parameters
+    '("GdkDragAction" "actions")
+    '("GType*" "types")
+    '("gsize" "n_types")
+  )
+)
+
+(define-method get_extra_drag_preferred_action
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_extra_drag_preferred_action")
+  (return-type "GdkDragAction")
+)
+
+(define-method get_extra_drag_preload
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_get_extra_drag_preload")
+  (return-type "gboolean")
+)
+
+(define-method set_extra_drag_preload
+  (of-object "AdwTabOverview")
+  (c-name "adw_tab_overview_set_extra_drag_preload")
+  (return-type "none")
+  (parameters
+    '("gboolean" "preload")
+  )
 )
 
 
@@ -4250,6 +6903,72 @@
   (parameters
     '("gboolean" "needs_attention")
   )
+)
+
+(define-method get_keyword
+  (of-object "AdwTabPage")
+  (c-name "adw_tab_page_get_keyword")
+  (return-type "const-char*")
+)
+
+(define-method set_keyword
+  (of-object "AdwTabPage")
+  (c-name "adw_tab_page_set_keyword")
+  (return-type "none")
+  (parameters
+    '("const-char*" "keyword")
+  )
+)
+
+(define-method get_thumbnail_xalign
+  (of-object "AdwTabPage")
+  (c-name "adw_tab_page_get_thumbnail_xalign")
+  (return-type "float")
+)
+
+(define-method set_thumbnail_xalign
+  (of-object "AdwTabPage")
+  (c-name "adw_tab_page_set_thumbnail_xalign")
+  (return-type "none")
+  (parameters
+    '("float" "xalign")
+  )
+)
+
+(define-method get_thumbnail_yalign
+  (of-object "AdwTabPage")
+  (c-name "adw_tab_page_get_thumbnail_yalign")
+  (return-type "float")
+)
+
+(define-method set_thumbnail_yalign
+  (of-object "AdwTabPage")
+  (c-name "adw_tab_page_set_thumbnail_yalign")
+  (return-type "none")
+  (parameters
+    '("float" "yalign")
+  )
+)
+
+(define-method get_live_thumbnail
+  (of-object "AdwTabPage")
+  (c-name "adw_tab_page_get_live_thumbnail")
+  (return-type "gboolean")
+)
+
+(define-method set_live_thumbnail
+  (of-object "AdwTabPage")
+  (c-name "adw_tab_page_set_live_thumbnail")
+  (return-type "none")
+  (parameters
+    '("gboolean" "live_thumbnail")
+  )
+)
+
+(define-method invalidate_thumbnail
+  (of-object "AdwTabPage")
+  (c-name "adw_tab_page_invalidate_thumbnail")
+  (return-type "none")
 )
 
 (define-function adw_tab_view_new
@@ -4578,6 +7297,12 @@
   (return-type "GtkSelectionModel*")
 )
 
+(define-method invalidate_thumbnails
+  (of-object "AdwTabView")
+  (c-name "adw_tab_view_invalidate_thumbnails")
+  (return-type "none")
+)
+
 
 
 ;; From adw-timed-animation.h
@@ -4846,6 +7571,21 @@
   )
 )
 
+(define-method get_use_markup
+  (of-object "AdwToast")
+  (c-name "adw_toast_get_use_markup")
+  (return-type "gboolean")
+)
+
+(define-method set_use_markup
+  (of-object "AdwToast")
+  (c-name "adw_toast_set_use_markup")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_markup")
+  )
+)
+
 (define-method dismiss
   (of-object "AdwToast")
   (c-name "adw_toast_dismiss")
@@ -4884,6 +7624,160 @@
   (parameters
     '("AdwToast*" "toast")
   )
+)
+
+
+
+;; From adw-toolbar-view.h
+
+(define-function adw_toolbar_view_new
+  (c-name "adw_toolbar_view_new")
+  (is-constructor-of "AdwToolbarView")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_content
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_get_content")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_content
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_set_content")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "content")
+  )
+)
+
+(define-method add_top_bar
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_add_top_bar")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-method add_bottom_bar
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_add_bottom_bar")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-method remove
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_remove")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-method get_top_bar_style
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_get_top_bar_style")
+  (return-type "AdwToolbarStyle")
+)
+
+(define-method set_top_bar_style
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_set_top_bar_style")
+  (return-type "none")
+  (parameters
+    '("AdwToolbarStyle" "style")
+  )
+)
+
+(define-method get_bottom_bar_style
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_get_bottom_bar_style")
+  (return-type "AdwToolbarStyle")
+)
+
+(define-method set_bottom_bar_style
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_set_bottom_bar_style")
+  (return-type "none")
+  (parameters
+    '("AdwToolbarStyle" "style")
+  )
+)
+
+(define-method get_reveal_top_bars
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_get_reveal_top_bars")
+  (return-type "gboolean")
+)
+
+(define-method set_reveal_top_bars
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_set_reveal_top_bars")
+  (return-type "none")
+  (parameters
+    '("gboolean" "reveal")
+  )
+)
+
+(define-method get_reveal_bottom_bars
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_get_reveal_bottom_bars")
+  (return-type "gboolean")
+)
+
+(define-method set_reveal_bottom_bars
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_set_reveal_bottom_bars")
+  (return-type "none")
+  (parameters
+    '("gboolean" "reveal")
+  )
+)
+
+(define-method get_extend_content_to_top_edge
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_get_extend_content_to_top_edge")
+  (return-type "gboolean")
+)
+
+(define-method set_extend_content_to_top_edge
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_set_extend_content_to_top_edge")
+  (return-type "none")
+  (parameters
+    '("gboolean" "extend")
+  )
+)
+
+(define-method get_extend_content_to_bottom_edge
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_get_extend_content_to_bottom_edge")
+  (return-type "gboolean")
+)
+
+(define-method set_extend_content_to_bottom_edge
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_set_extend_content_to_bottom_edge")
+  (return-type "none")
+  (parameters
+    '("gboolean" "extend")
+  )
+)
+
+(define-method get_top_bar_height
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_get_top_bar_height")
+  (return-type "int")
+)
+
+(define-method get_bottom_bar_height
+  (of-object "AdwToolbarView")
+  (c-name "adw_toolbar_view_get_bottom_bar_height")
+  (return-type "int")
 )
 
 
@@ -5161,6 +8055,21 @@
   (return-type "GtkSelectionModel*")
 )
 
+(define-method get_selected_page
+  (of-object "AdwViewStackPages")
+  (c-name "adw_view_stack_pages_get_selected_page")
+  (return-type "AdwViewStackPage*")
+)
+
+(define-method set_selected_page
+  (of-object "AdwViewStackPages")
+  (c-name "adw_view_stack_pages_set_selected_page")
+  (return-type "none")
+  (parameters
+    '("AdwViewStackPage*" "page")
+  )
+)
+
 
 
 ;; From adw-view-switcher-bar.h
@@ -5340,6 +8249,33 @@
   (parameters
     '("GtkWidget*" "content")
   )
+)
+
+(define-method add_breakpoint
+  (of-object "AdwWindow")
+  (c-name "adw_window_add_breakpoint")
+  (return-type "none")
+  (parameters
+    '("AdwBreakpoint*" "breakpoint")
+  )
+)
+
+(define-method get_current_breakpoint
+  (of-object "AdwWindow")
+  (c-name "adw_window_get_current_breakpoint")
+  (return-type "AdwBreakpoint*")
+)
+
+(define-method get_dialogs
+  (of-object "AdwWindow")
+  (c-name "adw_window_get_dialogs")
+  (return-type "GListModel*")
+)
+
+(define-method get_visible_dialog
+  (of-object "AdwWindow")
+  (c-name "adw_window_get_visible_dialog")
+  (return-type "AdwDialog*")
 )
 
 

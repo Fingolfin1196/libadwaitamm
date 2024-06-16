@@ -1,0 +1,77 @@
+/* Copyright (c) 2024  Kurt Böhm <kurbo96@gmail.com>
+ *
+ * This file is part of libadwaitamm.
+ *
+ * libadwaitamm is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 2.1 of the License,
+ * or (at your option) any later version.
+ *
+ * libadwaitamm is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(libadwaitamm,libadwaita)
+_CONFIGINCLUDE(libadwaitammconfig.h)
+_PINCLUDE(gtkmm/private/widget_p.h)
+
+#include <gtkmm.h>
+
+// The documentation explicitly advises against this.
+// But G_DECLARE_FINAL_TYPE seems to do struct { ... } Foo; which means we
+// cannot forward-declare a struct type Foo.
+#include <libadwaita-1/adwaita.h>
+
+namespace Adw
+{
+_WRAP_ENUM(ToolbarStyle, AdwToolbarStyle)
+
+class ToolbarView : public Gtk::Widget {
+  _CLASS_GOBJECT(ToolbarView, AdwToolbarView, ADW_TOOLBAR_VIEW, Gtk::Widget, GtkWidget)
+  _STRUCT_NOT_HIDDEN
+  _DO_NOT_DERIVE_GTYPE
+
+protected:
+  _CTOR_DEFAULT
+
+public:
+  _WRAP_CREATE()
+
+  _WRAP_METHOD(Gtk::Widget* get_content() const, adw_toolbar_view_get_content)
+  _WRAP_METHOD(void set_content(Gtk::Widget& content), adw_toolbar_view_set_content)
+
+  _WRAP_METHOD(void add_top_bar(Gtk::Widget& widget), adw_toolbar_view_add_top_bar)
+  _WRAP_METHOD(void add_bottom_bar(Gtk::Widget& widget), adw_toolbar_view_add_bottom_bar)
+
+  _WRAP_METHOD(void remove(Gtk::Widget& widget), adw_toolbar_view_remove)
+
+  _WRAP_METHOD(ToolbarStyle get_top_bar_style() const, adw_toolbar_view_get_top_bar_style)
+  _WRAP_METHOD(void set_top_bar_style(ToolbarStyle style), adw_toolbar_view_set_top_bar_style)
+
+  _WRAP_METHOD(ToolbarStyle get_bottom_bar_style() const, adw_toolbar_view_get_bottom_bar_style)
+  _WRAP_METHOD(void set_bottom_bar_style(ToolbarStyle style), adw_toolbar_view_set_bottom_bar_style)
+
+  _WRAP_METHOD(bool get_reveal_top_bars() const, adw_toolbar_view_get_reveal_top_bars)
+  _WRAP_METHOD(void set_reveal_top_bars(bool reveal), adw_toolbar_view_set_reveal_top_bars)
+
+  _WRAP_METHOD(bool get_reveal_bottom_bars() const, adw_toolbar_view_get_reveal_bottom_bars)
+  _WRAP_METHOD(void set_reveal_bottom_bars(bool reveal), adw_toolbar_view_set_reveal_bottom_bars)
+
+  _WRAP_METHOD(bool get_extend_content_to_top_edge() const, adw_toolbar_view_get_extend_content_to_top_edge)
+  _WRAP_METHOD(void set_extend_content_to_top_edge(bool extend), adw_toolbar_view_set_extend_content_to_top_edge)
+
+  _WRAP_METHOD(bool get_extend_content_to_bottom_edge() const, adw_toolbar_view_get_extend_content_to_bottom_edge)
+  _WRAP_METHOD(void set_extend_content_to_bottom_edge(bool extend), adw_toolbar_view_set_extend_content_to_bottom_edge)
+
+  _WRAP_METHOD(int get_top_bar_height() const, adw_toolbar_view_get_top_bar_height)
+  _WRAP_METHOD(int get_bottom_bar_height() const, adw_toolbar_view_get_bottom_bar_height)
+
+  _WRAP_PROPERTY("content", Gtk::Widget*)
+};
+
+} // namespace Adw

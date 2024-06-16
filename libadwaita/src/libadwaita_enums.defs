@@ -1,3 +1,22 @@
+;; From adw-alert-dialog.h
+
+;; Original typedef:
+;; typedef enum {
+;;   ADW_RESPONSE_DEFAULT,
+;;   ADW_RESPONSE_SUGGESTED,
+;;   ADW_RESPONSE_DESTRUCTIVE,
+;; } AdwResponseAppearance;
+
+(define-enum-extended ResponseAppearance
+  (in-module "Adw")
+  (c-name "AdwResponseAppearance")
+  (values
+    '("default" "ADW_RESPONSE_DEFAULT" "0")
+    '("suggested" "ADW_RESPONSE_SUGGESTED" "1")
+    '("destructive" "ADW_RESPONSE_DESTRUCTIVE" "2")
+  )
+)
+
 ;; From adw-animation.h
 
 ;; Original typedef:
@@ -16,6 +35,61 @@
     '("paused" "ADW_ANIMATION_PAUSED" "1")
     '("playing" "ADW_ANIMATION_PLAYING" "2")
     '("finished" "ADW_ANIMATION_FINISHED" "3")
+  )
+)
+
+;; From adw-breakpoint.h
+
+;; Original typedef:
+;; typedef enum {
+;;   ADW_BREAKPOINT_CONDITION_MIN_WIDTH,
+;;   ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
+;;   ADW_BREAKPOINT_CONDITION_MIN_HEIGHT,
+;;   ADW_BREAKPOINT_CONDITION_MAX_HEIGHT,
+;; } AdwBreakpointConditionLengthType;
+
+(define-enum-extended BreakpointConditionLengthType
+  (in-module "Adw")
+  (c-name "AdwBreakpointConditionLengthType")
+  (values
+    '("min-width" "ADW_BREAKPOINT_CONDITION_MIN_WIDTH" "0")
+    '("max-width" "ADW_BREAKPOINT_CONDITION_MAX_WIDTH" "1")
+    '("min-height" "ADW_BREAKPOINT_CONDITION_MIN_HEIGHT" "2")
+    '("max-height" "ADW_BREAKPOINT_CONDITION_MAX_HEIGHT" "3")
+  )
+)
+
+;; Original typedef:
+;; typedef enum {
+;;   ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO,
+;;   ADW_BREAKPOINT_CONDITION_MAX_ASPECT_RATIO,
+;; } AdwBreakpointConditionRatioType;
+
+(define-enum-extended BreakpointConditionRatioType
+  (in-module "Adw")
+  (c-name "AdwBreakpointConditionRatioType")
+  (values
+    '("min-aspect-ratio" "ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO" "0")
+    '("max-aspect-ratio" "ADW_BREAKPOINT_CONDITION_MAX_ASPECT_RATIO" "1")
+  )
+)
+
+;; From adw-dialog.h
+
+;; Original typedef:
+;; typedef enum {
+;;   ADW_DIALOG_AUTO,
+;;   ADW_DIALOG_FLOATING,
+;;   ADW_DIALOG_BOTTOM_SHEET,
+;; } AdwDialogPresentationMode;
+
+(define-enum-extended DialogPresentationMode
+  (in-module "Adw")
+  (c-name "AdwDialogPresentationMode")
+  (values
+    '("auto" "ADW_DIALOG_AUTO" "0")
+    '("floating" "ADW_DIALOG_FLOATING" "1")
+    '("bottom-sheet" "ADW_DIALOG_BOTTOM_SHEET" "2")
   )
 )
 
@@ -183,22 +257,22 @@
   )
 )
 
-;; From adw-message-dialog.h
+;; From adw-length-unit.h
 
 ;; Original typedef:
 ;; typedef enum {
-;;   ADW_RESPONSE_DEFAULT,
-;;   ADW_RESPONSE_SUGGESTED,
-;;   ADW_RESPONSE_DESTRUCTIVE,
-;; } AdwResponseAppearance;
+;;   ADW_LENGTH_UNIT_PX,
+;;   ADW_LENGTH_UNIT_PT,
+;;   ADW_LENGTH_UNIT_SP,
+;; } AdwLengthUnit;
 
-(define-enum-extended ResponseAppearance
+(define-enum-extended LengthUnit
   (in-module "Adw")
-  (c-name "AdwResponseAppearance")
+  (c-name "AdwLengthUnit")
   (values
-    '("default" "ADW_RESPONSE_DEFAULT" "0")
-    '("suggested" "ADW_RESPONSE_SUGGESTED" "1")
-    '("destructive" "ADW_RESPONSE_DESTRUCTIVE" "2")
+    '("px" "ADW_LENGTH_UNIT_PX" "0")
+    '("pt" "ADW_LENGTH_UNIT_PT" "1")
+    '("sp" "ADW_LENGTH_UNIT_SP" "2")
   )
 )
 
@@ -314,6 +388,25 @@
   (values
     '("normal" "ADW_TOAST_PRIORITY_NORMAL" "0")
     '("high" "ADW_TOAST_PRIORITY_HIGH" "1")
+  )
+)
+
+;; From adw-toolbar-view.h
+
+;; Original typedef:
+;; typedef enum {
+;;   ADW_TOOLBAR_FLAT,
+;;   ADW_TOOLBAR_RAISED,
+;;   ADW_TOOLBAR_RAISED_BORDER,
+;; } AdwToolbarStyle;
+
+(define-enum-extended ToolbarStyle
+  (in-module "Adw")
+  (c-name "AdwToolbarStyle")
+  (values
+    '("flat" "ADW_TOOLBAR_FLAT" "0")
+    '("raised" "ADW_TOOLBAR_RAISED" "1")
+    '("raised-border" "ADW_TOOLBAR_RAISED_BORDER" "2")
   )
 )
 

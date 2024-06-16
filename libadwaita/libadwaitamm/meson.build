@@ -71,6 +71,7 @@ hg_ccg_basenames = [
   'timedanimation',
   'toast',
   'toastoverlay',
+  'toolbarview',
   'viewstack',
   'viewstackpage',
   'viewswitcher',

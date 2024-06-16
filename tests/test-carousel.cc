@@ -38,7 +38,7 @@ static void test_adw_carousel_add_remove(void) {
 
   g_assert_true(carousel.get_n_pages() == 0);
 
-  carousel.append(&child1);
+  carousel.append(child1);
   g_assert_true(carousel.get_n_pages() == 1);
   g_assert_true(notified == 1);
 
@@ -90,10 +90,10 @@ static void test_adw_carousel_reorder(void) {
   Gtk::Label child3;
   Gtk::Label child4;
 
-  carousel.append(&child1);
-  carousel.append(&child2);
-  carousel.append(&child3);
-  carousel.append(&child4);
+  carousel.append(child1);
+  carousel.append(child2);
+  carousel.append(child3);
+  carousel.append(child4);
   allocate_carousel(carousel);
 
   g_assert_true(carousel.get_n_pages() == 4);

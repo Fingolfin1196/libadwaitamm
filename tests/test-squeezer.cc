@@ -69,7 +69,7 @@ static void test_adw_squeezer_show_hide_child(void) {
 
   Gtk::Label *child = Gtk::make_managed<Gtk::Label>("");
 
-  squeezer.add(child);
+  squeezer.add(*child);
   g_assert_true(squeezer.get_visible_child() == child);
 
   child->hide();
@@ -78,7 +78,7 @@ static void test_adw_squeezer_show_hide_child(void) {
   child->show();
   g_assert_true(squeezer.get_visible_child() == child);
 
-  squeezer.remove(child);
+  squeezer.remove(*child);
   g_assert_true(squeezer.get_visible_child() == nullptr);
 }
 
@@ -99,7 +99,7 @@ static void test_adw_squeezer_page_enabled(void) {
 
   Gtk::Label *child = Gtk::make_managed<Gtk::Label>();
 
-  Glib::RefPtr<Adw::SqueezerPage> page = squeezer.add(child);
+  Glib::RefPtr<Adw::SqueezerPage> page = squeezer.add(*child);
   g_assert_true(page->get_enabled());
 
   page->set_enabled(false);
