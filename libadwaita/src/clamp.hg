@@ -29,6 +29,7 @@ _PINCLUDE(gtkmm/private/widget_p.h)
 
 namespace Adw
 {
+_WRAP_ENUM(LengthUnit, AdwLengthUnit)
 
 class Clamp : public Gtk::Widget, public Gtk::Orientable {
   _CLASS_GTKOBJECT(Clamp, AdwClamp, ADW_CLAMP, Gtk::Widget, GtkWidget)
@@ -45,10 +46,13 @@ public:
   _WRAP_METHOD(void set_child(Gtk::Widget* child), adw_clamp_set_child)
   _WRAP_METHOD(void get_maximum_size(int maximum_size), adw_clamp_set_maximum_size)
   _WRAP_METHOD(void get_tightening_threshold(int tightening_threshold), adw_clamp_set_tightening_threshold)
+  _WRAP_METHOD(void set_unit(LengthUnit unit), adw_clamp_set_unit)
+  _WRAP_METHOD(LengthUnit get_unit() const, adw_clamp_get_unit)
 
   _WRAP_PROPERTY("child", Gtk::Widget*)
   _WRAP_PROPERTY("maximum_size", int)
   _WRAP_PROPERTY("tightening_threshold", int)
+  _WRAP_PROPERTY("unit", LengthUnit)
 };
 
 } // namespace Adw
