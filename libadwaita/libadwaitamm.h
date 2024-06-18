@@ -88,6 +88,7 @@
 #include <libadwaitamm/timedanimation.h>
 #include <libadwaitamm/toast.h>
 #include <libadwaitamm/toastoverlay.h>
+#include <libadwaitamm/toolbarview.h>
 #include <libadwaitamm/viewstack.h>
 #include <libadwaitamm/viewstackpage.h>
 #include <libadwaitamm/viewswitcher.h>
