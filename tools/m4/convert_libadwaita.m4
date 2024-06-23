@@ -75,6 +75,7 @@ _CONVERSION(`const Glib::RefPtr<ViewStack>&',`AdwViewStack*',__CONVERT_REFPTR_TO
 _CONV_ENUM(`Adw',`AnimationState')
 _CONV_ENUM(`Adw',`ColorScheme')
 _CONV_ENUM(`Adw',`CenteringPolicy')
+_CONV_ENUM(`Adw',`DialogPresentationMode')
 _CONV_ENUM(`Adw',`Easing')
 _CONV_ENUM(`Adw',`FlapFoldPolicy')
 _CONV_ENUM(`Adw',`FlapTransitionType')

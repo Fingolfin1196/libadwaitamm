@@ -37,7 +37,9 @@
  * file with the correct include path and link command-line for the compiler.
  */
 
+// IWYU pragma: begin_exports
 #include <libadwaitammconfig.h>
+#include <libadwaitamm/aboutdialog.h>
 #include <libadwaitamm/aboutwindow.h>
 #include <libadwaitamm/actionrow.h>
 #include <libadwaitamm/animation.h>
@@ -55,6 +57,7 @@
 #include <libadwaitamm/clamplayout.h>
 #include <libadwaitamm/clampscrollable.h>
 #include <libadwaitamm/comborow.h>
+#include <libadwaitamm/dialog.h>
 #include <libadwaitamm/easing.h>
 #include <libadwaitamm/entryrow.h>
 #include <libadwaitamm/enumlistitem.h>
@@ -96,5 +99,6 @@
 #include <libadwaitamm/viewswitchertitle.h>
 #include <libadwaitamm/window.h>
 #include <libadwaitamm/windowtitle.h>
+// IWYU pragma: end_exports
 
 #endif /* !LIBADWAITAMM_H_INCLUDED */

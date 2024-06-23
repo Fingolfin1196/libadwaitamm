@@ -21,6 +21,7 @@ foreach file : defs_basefiles
 endforeach
 
 hg_ccg_basenames = [
+  'aboutdialog',
   'aboutwindow',
   'actionrow',
   'animation',
@@ -38,6 +39,7 @@ hg_ccg_basenames = [
   'clamplayout',
   'clampscrollable',
   'comborow',
+  'dialog',
   'easing',
   'entryrow',
   'enumlistitem',
