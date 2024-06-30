@@ -1,4 +1,4 @@
-[![C/C++ CI Fedora 40](https://github.com:KurtBoehm/libadwaitamm/actions/workflows/meson-fedora.yml/badge.svg)](https://github.com:KurtBoehm/libadwaitamm/actions/workflows/meson-fedora.yml)
+[![C/C++ CI Fedora 40](https://github.com/KurtBoehm/libadwaitamm/actions/workflows/meson-fedora.yml/badge.svg)](https://github.com/KurtBoehm/libadwaitamm/actions/workflows/meson-fedora.yml)
 
 ## About
 
