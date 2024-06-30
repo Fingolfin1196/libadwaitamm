@@ -21,9 +21,13 @@ _CONFIGINCLUDE(libadwaitammconfig.h)
 _PINCLUDE(gtkmm/private/applicationwindow_p.h)
 
 #include <gtkmm.h>
+#include <libadwaitamm/breakpoint.h>
+#include <libadwaitamm/dialog.h>
 
 namespace Adw
 {
+
+#m4 _CONVERSION(`GListModel*',`std::vector<Adw::Dialog*>',`listmodel_to_vector<Adw::Dialog>($3)')
 
 class ApplicationWindow : public Gtk::ApplicationWindow {
   _CLASS_GTKOBJECT(ApplicationWindow, AdwApplicationWindow, ADW_APPLICATION_WINDOW, Gtk::ApplicationWindow, GtkApplicationWindow)
@@ -34,9 +38,18 @@ protected:
 
 public:
   _WRAP_CTOR(ApplicationWindow(const Glib::RefPtr<Gtk::Application>& application), adw_application_window_new)
+
+  _WRAP_METHOD(void add_breakpoint(Adw::Breakpoint* breakpoint), adw_application_window_add_breakpoint)
   _WRAP_METHOD(Gtk::Widget* get_content() const, adw_application_window_get_content)
-  _WRAP_METHOD(void set_content(Gtk::Widget& content), adw_application_window_set_content)
+  _WRAP_METHOD(Adw::Breakpoint* get_current_breakpoint() const, adw_application_window_get_current_breakpoint)
+  _WRAP_METHOD(std::vector<Adw::Dialog*> get_dialogs() const, adw_application_window_get_dialogs)
+  _WRAP_METHOD(Adw::Dialog* get_visible_dialog() const, adw_application_window_get_visible_dialog)
+  _WRAP_METHOD(void set_content(Gtk::Widget* content), adw_application_window_set_content)
+
   _WRAP_PROPERTY("content", Gtk::Widget*)
+  _WRAP_PROPERTY("current_breakpoint", Adw::Breakpoint*)
+  _WRAP_PROPERTY("dialogs", Glib::RefPtr<Gio::ListModel>)
+  _WRAP_PROPERTY("visible_dialog", Adw::Dialog*)
 };
 
 } // namespace Adw

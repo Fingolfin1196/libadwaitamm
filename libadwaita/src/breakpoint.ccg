@@ -18,7 +18,13 @@
 
 #include <gtkmm.h>
 
-namespace Adw
+namespace Glib
 {
 
-} // namespace Adw
+Adw::Breakpoint* wrap(AdwBreakpoint* object, bool take_copy)
+{
+  return dynamic_cast<Adw::Breakpoint*> (Glib::wrap_auto ((GObject*)(object), take_copy));
+  //We use dynamic_cast<> in case of multiple inheritance.
+}
+
+} /* namespace Glib */

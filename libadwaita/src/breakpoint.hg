@@ -34,24 +34,24 @@ namespace Adw
 class Breakpoint : public Glib::Object {
   _CLASS_GOBJECT(Breakpoint, AdwBreakpoint, ADW_BREAKPOINT, Glib::Object, GObject)
   _STRUCT_NOT_HIDDEN
+  _UNMANAGEABLE
+  _DO_NOT_DERIVE_GTYPE
+  _NO_WRAP_FUNCTION
 
 protected:
   _CTOR_DEFAULT
+  _WRAP_CTOR(Breakpoint(BreakpointCondition condition), adw_breakpoint_new)
 
 public:
-#m4 _CONVERSION(`Glib::Object&',`GObject*',`($3).gobj()')
-#m4 _CONVERSION(`BreakpointCondition',`AdwBreakpointCondition*',`($3).gobj()')
-#m4 _CONVERSION(`BreakpointCondition&',`AdwBreakpointCondition*',`($3).gobj()')
-#m4 _CONVERSION(`AdwBreakpointCondition*',`BreakpointCondition',`Glib::wrap($3, true)')
-
-  _WRAP_CTOR(Breakpoint(BreakpointCondition condition), adw_breakpoint_new)
+  _WRAP_CREATE(BreakpointCondition condition)
 
   _IGNORE(adw_breakpoint_add_setters_valist)
   _IGNORE(adw_breakpoint_add_setters)
-  // TODO Add adw_breakpoint_add_settersv
+  // TODO Add?
+  _IGNORE(adw_breakpoint_add_settersv)
 
   _WRAP_METHOD(void add_setter(Glib::Object& obj, const Glib::ustring& property, const Glib::ValueBase& value), adw_breakpoint_add_setter)
-  _WRAP_METHOD(BreakpointCondition get_condition(), adw_breakpoint_get_condition)
+  _WRAP_METHOD(BreakpointCondition get_condition() const, adw_breakpoint_get_condition)
   _WRAP_METHOD(void set_condition(BreakpointCondition& condition), adw_breakpoint_set_condition)
 
   _WRAP_PROPERTY("condition", BreakpointCondition)
@@ -61,3 +61,16 @@ public:
 };
 
 } // namespace Adw
+
+namespace Glib
+{
+  /** A Glib::wrap() method for this object.
+   *
+   * @param object The C instance.
+   * @param take_copy False if the result should take ownership of the C instance. True if it should take a new copy or ref.
+   * @result A C++ instance that wraps this C instance.
+   *
+   * @relates Adw::Breakpoint
+   */
+  Adw::Breakpoint* wrap(AdwBreakpoint* object, bool take_copy = false);
+}
