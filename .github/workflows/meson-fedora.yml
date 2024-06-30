@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: fedora:37
+      image: fedora:40
       options: --security-opt seccomp=unconfined
     steps:
     - name: Setup git
