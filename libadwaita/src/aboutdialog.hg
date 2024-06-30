@@ -107,7 +107,7 @@ public:
   _WRAP_PROPERTY("version", Glib::ustring)
   _WRAP_PROPERTY("website", Glib::ustring)
 
-  _WRAP_SIGNAL(void activate_link(const Glib::ustring& uri), "activate-link", no_default_handler)
+  _WRAP_SIGNAL(bool activate_link(const Glib::ustring& uri), "activate-link", no_default_handler)
 };
 
 } // namespace Adw

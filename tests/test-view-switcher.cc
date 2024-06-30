@@ -10,13 +10,15 @@
 static void test_adw_view_switcher_policy(void) {
   Adw::ViewSwitcher view_switcher;
 
-  g_assert_true(view_switcher.get_policy() == Adw::ViewSwitcherPolicy::NARROW);
+  g_assert_true(view_switcher.get_policy() ==
+                Adw::ViewSwitcher::Policy::NARROW);
 
-  view_switcher.set_policy(Adw::ViewSwitcherPolicy::WIDE);
-  g_assert_true(view_switcher.get_policy() == Adw::ViewSwitcherPolicy::WIDE);
+  view_switcher.set_policy(Adw::ViewSwitcher::Policy::WIDE);
+  g_assert_true(view_switcher.get_policy() == Adw::ViewSwitcher::Policy::WIDE);
 
-  view_switcher.set_policy(Adw::ViewSwitcherPolicy::NARROW);
-  g_assert_true(view_switcher.get_policy() == Adw::ViewSwitcherPolicy::NARROW);
+  view_switcher.set_policy(Adw::ViewSwitcher::Policy::NARROW);
+  g_assert_true(view_switcher.get_policy() ==
+                Adw::ViewSwitcher::Policy::NARROW);
 }
 
 static void test_adw_view_switcher_stack(void) {

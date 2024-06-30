@@ -20,8 +20,8 @@ private:
 
   void next_row_activated_cb();
 
-  std::unique_ptr<Glib::Property<Adw::LeafletTransitionType>> p_transition_type;
-
+  std::unique_ptr<Glib::Property<Adw::Leaflet::TransitionType>>
+      p_transition_type;
 };
 
 } // namespace Adw

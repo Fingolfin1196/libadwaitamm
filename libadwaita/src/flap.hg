@@ -33,9 +33,6 @@ _PINCLUDE(gtkmm/private/widget_p.h)
 namespace Adw
 {
 
-_WRAP_ENUM(FlapFoldPolicy, AdwFlapFoldPolicy)
-_WRAP_ENUM(FlapTransitionType, AdwFlapTransitionType)
-
 class Flap : public Gtk::Widget, Gtk::Orientable, Adw::Swipeable {
   _CLASS_GTKOBJECT(Flap, AdwFlap, ADW_FLAP, Gtk::Widget, GtkWidget)
   _STRUCT_NOT_HIDDEN
@@ -44,13 +41,16 @@ class Flap : public Gtk::Widget, Gtk::Orientable, Adw::Swipeable {
   _DO_NOT_DERIVE_GTYPE
 
 public:
+  _WRAP_ENUM(FoldPolicy, AdwFlapFoldPolicy)
+  _WRAP_ENUM(TransitionType, AdwFlapTransitionType)
+
   _CTOR_DEFAULT
 
   _WRAP_METHOD(Gtk::Widget* get_content() const, adw_flap_get_content)
   _WRAP_METHOD(Gtk::Widget* get_flap() const, adw_flap_get_flap)
   _WRAP_METHOD(Gtk::PackType get_flap_position() const, adw_flap_get_flap_position)
   _WRAP_METHOD(guint get_fold_duration() const, adw_flap_get_fold_duration)
-  _WRAP_METHOD(FlapFoldPolicy get_fold_policy() const, adw_flap_get_fold_policy)
+  _WRAP_METHOD(Flap::FoldPolicy get_fold_policy() const, adw_flap_get_fold_policy)
   _WRAP_METHOD(FoldThresholdPolicy get_fold_threshold_policy() const, adw_flap_get_fold_threshold_policy)
   _WRAP_METHOD(bool get_folded() const, adw_flap_get_folded)
   _WRAP_METHOD(bool get_locked() const, adw_flap_get_locked)
@@ -62,12 +62,12 @@ public:
   _WRAP_METHOD(Gtk::Widget* get_separator() const, adw_flap_get_separator)
   _WRAP_METHOD(bool get_swipe_to_close() const, adw_flap_get_swipe_to_close)
   _WRAP_METHOD(bool get_swipe_to_open() const, adw_flap_get_swipe_to_open)
-  _WRAP_METHOD(FlapTransitionType get_transition_type() const, adw_flap_get_transition_type)
+  _WRAP_METHOD(Flap::TransitionType get_transition_type() const, adw_flap_get_transition_type)
   _WRAP_METHOD(void set_content(Gtk::Widget& widget), adw_flap_set_content)
   _WRAP_METHOD(void set_flap(Gtk::Widget* widget), adw_flap_set_flap)
   _WRAP_METHOD(void set_flap_position(Gtk::PackType position), adw_flap_set_flap_position)
   _WRAP_METHOD(void set_fold_duration(guint duration), adw_flap_set_fold_duration)
-  _WRAP_METHOD(void set_fold_policy(FlapFoldPolicy policy), adw_flap_set_fold_policy)
+  _WRAP_METHOD(void set_fold_policy(FoldPolicy policy), adw_flap_set_fold_policy)
   _WRAP_METHOD(void set_fold_threshold_policy(FoldThresholdPolicy), adw_flap_set_fold_threshold_policy)
   _WRAP_METHOD(void set_locked(bool locked), adw_flap_set_locked)
   _WRAP_METHOD(void set_modal(bool modal), adw_flap_set_modal)
@@ -76,13 +76,13 @@ public:
   _WRAP_METHOD(void set_separator(Gtk::Widget* separator), adw_flap_set_separator)
   _WRAP_METHOD(void set_swipe_to_close(bool locked), adw_flap_set_swipe_to_close)
   _WRAP_METHOD(void set_swipe_to_open(bool locked), adw_flap_set_swipe_to_open)
-  _WRAP_METHOD(void set_transition_type(FlapTransitionType transition_type), adw_flap_set_transition_type)
+  _WRAP_METHOD(void set_transition_type(TransitionType transition_type), adw_flap_set_transition_type)
 
   _WRAP_PROPERTY("content", Gtk::Widget*)
   _WRAP_PROPERTY("flap", Gtk::Widget*)
   _WRAP_PROPERTY("flap-position", Gtk::PackType)
   _WRAP_PROPERTY("fold-duration", guint)
-  _WRAP_PROPERTY("fold-policy", FlapFoldPolicy)
+  _WRAP_PROPERTY("fold-policy", Flap::FoldPolicy)
   _WRAP_PROPERTY("fold-threshold-policy", FoldThresholdPolicy)
   _WRAP_PROPERTY("folded", bool)
   _WRAP_PROPERTY("locked", bool)
@@ -93,7 +93,7 @@ public:
   _WRAP_PROPERTY("separator", Gtk::Widget*)
   _WRAP_PROPERTY("swipe-to-close", bool)
   _WRAP_PROPERTY("swipe-to-open", bool)
-  _WRAP_PROPERTY("transition-type", FlapTransitionType)
+  _WRAP_PROPERTY("transition-type", Flap::TransitionType)
 
 };
 

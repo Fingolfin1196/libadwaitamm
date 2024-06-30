@@ -36,8 +36,8 @@ void DemoPageLeaflet::setup_template(Gtk::TemplateWidgetSetup &s) {
 
 void DemoPageLeaflet::init_widget(Gtk::TemplateWidgetInit &i) {
   p_transition_type =
-      std::make_unique<Glib::Property<Adw::LeafletTransitionType>>(
-          *this, "transition-type", Adw::LeafletTransitionType::OVER);
+      std::make_unique<Glib::Property<Adw::Leaflet::TransitionType>>(
+          *this, "transition-type", Adw::Leaflet::TransitionType::OVER);
 
   i.init_template();
 }

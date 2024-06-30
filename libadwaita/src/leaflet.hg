@@ -35,8 +35,6 @@ _PINCLUDE(gtkmm/private/widget_p.h)
 
 namespace Adw
 {
-_WRAP_ENUM(LeafletTransitionType, AdwLeafletTransitionType)
-
 class Leaflet : public Gtk::Widget, public Gtk::Orientable, public Adw::Swipeable {
   _CLASS_GTKOBJECT(Leaflet, AdwLeaflet, ADW_LEAFLET, Gtk::Widget, GtkWidget)
   _IMPLEMENTS_INTERFACE(Gtk::Orientable)
@@ -45,6 +43,8 @@ class Leaflet : public Gtk::Widget, public Gtk::Orientable, public Adw::Swipeabl
   _DO_NOT_DERIVE_GTYPE
 
 public:
+  _WRAP_ENUM(TransitionType, AdwLeafletTransitionType)
+
   _CTOR_DEFAULT
 
   _WRAP_METHOD(Glib::RefPtr<LeafletPage> append(Gtk::Widget& child), adw_leaflet_append, refreturn)
@@ -65,7 +65,7 @@ public:
   _IGNORE(adw_leaflet_get_pages)
   Glib::RefPtr<Gtk::SelectionModel> get_pages() const;
 
-  _WRAP_METHOD(LeafletTransitionType get_transition_type() const, adw_leaflet_get_transition_type)
+  _WRAP_METHOD(Leaflet::TransitionType get_transition_type() const, adw_leaflet_get_transition_type)
   _WRAP_METHOD(Gtk::Widget* get_visible_child() const, adw_leaflet_get_visible_child)
   _WRAP_METHOD(Glib::ustring get_visible_child_name() const, adw_leaflet_get_visible_child_name)
   _WRAP_METHOD(Glib::RefPtr<LeafletPage> insert_child_after(Gtk::Widget& child, Gtk::Widget* sibling), adw_leaflet_insert_child_after, refreturn)
@@ -80,7 +80,7 @@ public:
   _WRAP_METHOD(void set_fold_threshold_policy(FoldThresholdPolicy policy), adw_leaflet_set_fold_threshold_policy)
   _WRAP_METHOD(void set_homogeneous(bool homogeneous), adw_leaflet_set_homogeneous)
   _WRAP_METHOD(void set_mode_transition_duration(guint duration), adw_leaflet_set_mode_transition_duration)
-  _WRAP_METHOD(void set_transition_type(LeafletTransitionType transition), adw_leaflet_set_transition_type)
+  _WRAP_METHOD(void set_transition_type(TransitionType transition), adw_leaflet_set_transition_type)
   _WRAP_METHOD(void set_visible_child(Gtk::Widget& child), adw_leaflet_set_visible_child)
   _WRAP_METHOD(void set_visible_child_name(const Glib::ustring& name), adw_leaflet_set_visible_child_name)
 
@@ -94,7 +94,7 @@ public:
   _WRAP_PROPERTY("homogeneous", bool)
   _WRAP_PROPERTY("mode-transition-duration", guint)
   _WRAP_PROPERTY("pages", Glib::RefPtr<Gtk::SelectionModel>)
-  _WRAP_PROPERTY("transition-type", LeafletTransitionType)
+  _WRAP_PROPERTY("transition-type", Leaflet::TransitionType)
   _WRAP_PROPERTY("visible-child", Gtk::Widget*)
   _WRAP_PROPERTY("visible-child-name", Glib::ustring)
 };

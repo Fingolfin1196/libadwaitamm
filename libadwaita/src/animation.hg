@@ -27,8 +27,6 @@ _PINCLUDE(glibmm/private/object_p.h)
 namespace Adw
 {
 
-_WRAP_ENUM(AnimationState, AdwAnimationState)
-
 class Animation : public Glib::Object {
   _CLASS_GOBJECT(Animation, AdwAnimation, ADW_ANIMATION, Glib::Object, GObject)
 
@@ -36,9 +34,11 @@ protected:
   _CTOR_DEFAULT
 
 public:
+  _WRAP_ENUM(State, AdwAnimationState)
+
   _WRAP_CREATE()
 
-  _WRAP_METHOD(AnimationState get_state() const, adw_animation_get_state)
+  _WRAP_METHOD(Animation::State get_state() const, adw_animation_get_state)
   _WRAP_METHOD(double get_value() const, adw_animation_get_value)
   _WRAP_METHOD(Glib::RefPtr<AnimationTarget> get_target() const, adw_animation_get_target, refreturn)
   _WRAP_METHOD(Gtk::Widget* get_widget() const, adw_animation_get_widget)
@@ -49,7 +49,7 @@ public:
   _WRAP_METHOD(void set_target(Glib::RefPtr<AnimationTarget> target), adw_animation_set_target)
   _WRAP_METHOD(void skip(), adw_animation_skip)
 
-  _WRAP_PROPERTY("state", AnimationState)
+  _WRAP_PROPERTY("state", Animation::State)
   _WRAP_PROPERTY("target", Glib::RefPtr<AnimationTarget>)
   _WRAP_PROPERTY("value", double)
   _WRAP_PROPERTY("widget", Gtk::Widget*)

@@ -30,6 +30,8 @@ hg_ccg_basenames = [
   'applicationwindow',
   'avatar',
   'bin',
+  'breakpoint',
+  'breakpointcondition',
   'buttoncontent',
   'callbackanimationtarget',
   'carousel',

@@ -48,15 +48,13 @@ static bool close_noop(const Glib::RefPtr<Adw::TabPage> &) {
   return GDK_EVENT_STOP;
 }
 
-template <typename ...T>
-static void check_selection_non_null(T...,
-                                     Adw::TabView &view) {
+template <typename... T>
+static void check_selection_non_null(T..., Adw::TabView &view) {
   g_assert_true(view.get_selected_page() != nullptr);
 }
 
-template <typename ...T>
-static void check_selection_null(T...,
-                                 Adw::TabView &view) {
+template <typename... T>
+static void check_selection_null(T..., Adw::TabView &view) {
   g_assert_true(view.get_selected_page() == nullptr);
 }
 
@@ -179,27 +177,30 @@ static void test_adw_tab_view_shortcuts(void) {
   notified = 0;
   view.property_shortcuts().signal_changed().connect(sigc::ptr_fun(notify_cb));
 
-  Adw::TabViewShortcuts shortcuts =
-      view.get_property<Adw::TabViewShortcuts>("shortcuts");
-  g_assert_true(shortcuts == Adw::TabViewShortcuts::ALL_SHORTCUTS);
+  Adw::TabView::Shortcuts shortcuts =
+      view.get_property<Adw::TabView::Shortcuts>("shortcuts");
+  g_assert_true(shortcuts == Adw::TabView::Shortcuts::ALL_SHORTCUTS);
   g_assert_true(notified == 0);
 
-  view.set_shortcuts(Adw::TabViewShortcuts::CONTROL_PAGE_UP);
-  g_assert_true(view.get_shortcuts() == Adw::TabViewShortcuts::CONTROL_PAGE_UP);
+  view.set_shortcuts(Adw::TabView::Shortcuts::CONTROL_PAGE_UP);
+  g_assert_true(view.get_shortcuts() ==
+                Adw::TabView::Shortcuts::CONTROL_PAGE_UP);
   g_assert_true(notified == 1);
 
-  view.set_property<Adw::TabViewShortcuts>(
-      "shortcuts", Adw::TabViewShortcuts::CONTROL_PAGE_DOWN);
-  g_assert_true(view.get_shortcuts() == Adw::TabViewShortcuts::CONTROL_PAGE_DOWN);
+  view.set_property<Adw::TabView::Shortcuts>(
+      "shortcuts", Adw::TabView::Shortcuts::CONTROL_PAGE_DOWN);
+  g_assert_true(view.get_shortcuts() ==
+                Adw::TabView::Shortcuts::CONTROL_PAGE_DOWN);
   g_assert_true(notified == 2);
 
-  view.add_shortcuts(Adw::TabViewShortcuts::CONTROL_HOME);
-  g_assert_true(view.get_shortcuts() == (Adw::TabViewShortcuts::CONTROL_PAGE_DOWN |
-                                    Adw::TabViewShortcuts::CONTROL_HOME));
+  view.add_shortcuts(Adw::TabView::Shortcuts::CONTROL_HOME);
+  g_assert_true(view.get_shortcuts() ==
+                (Adw::TabView::Shortcuts::CONTROL_PAGE_DOWN |
+                 Adw::TabView::Shortcuts::CONTROL_HOME));
   g_assert_true(notified == 3);
 
-  view.remove_shortcuts(Adw::TabViewShortcuts::CONTROL_PAGE_DOWN);
-  g_assert_true(view.get_shortcuts() == Adw::TabViewShortcuts::CONTROL_HOME);
+  view.remove_shortcuts(Adw::TabView::Shortcuts::CONTROL_PAGE_DOWN);
+  g_assert_true(view.get_shortcuts() == Adw::TabView::Shortcuts::CONTROL_HOME);
   g_assert_true(notified == 4);
 }
 
@@ -725,9 +726,7 @@ static void test_adw_tab_view_transfer(void) {
   g_assert_true(view1.get_nth_page(2) == pages2[3]);
 }
 
-static void
-test_adw_tab_view_pages (void)
-{
+static void test_adw_tab_view_pages(void) {
   Adw::TabView view;
   std::array<Glib::RefPtr<Adw::TabPage>, 2> pages;
 
@@ -739,9 +738,11 @@ test_adw_tab_view_pages (void)
   g_assert_true(list_model != nullptr);
 
   sigc::connection conn1 = list_model->signal_items_changed().connect(
-      sigc::bind(sigc::ptr_fun(check_selection_non_null<guint, guint, guint>), std::ref(view)));
+      sigc::bind(sigc::ptr_fun(check_selection_non_null<guint, guint, guint>),
+                 std::ref(view)));
   sigc::connection conn2 = pages_model->signal_selection_changed().connect(
-      sigc::bind(sigc::ptr_fun(check_selection_non_null<guint, guint>), std::ref(view)));
+      sigc::bind(sigc::ptr_fun(check_selection_non_null<guint, guint>),
+                 std::ref(view)));
 
   pages[0] = view.add_page(*Gtk::make_managed<Gtk::Button>());
   pages[1] = view.add_page(*Gtk::make_managed<Gtk::Button>());
@@ -752,9 +753,10 @@ test_adw_tab_view_pages (void)
   conn2.disconnect();
 
   list_model->signal_items_changed().connect(
-       sigc::bind(sigc::ptr_fun(check_selection_null<guint, guint, guint>), std::ref(view)));
-  pages_model->signal_selection_changed().connect(
-      sigc::bind(sigc::ptr_fun(check_selection_null<guint, guint>), std::ref(view)));
+      sigc::bind(sigc::ptr_fun(check_selection_null<guint, guint, guint>),
+                 std::ref(view)));
+  pages_model->signal_selection_changed().connect(sigc::bind(
+      sigc::ptr_fun(check_selection_null<guint, guint>), std::ref(view)));
 
   view.close_page(pages[1]);
 }

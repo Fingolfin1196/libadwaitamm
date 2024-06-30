@@ -46,14 +46,16 @@ static void test_adw_squeezer_transition_duration(void) {
 static void test_adw_squeezer_transition_type(void) {
   Adw::Squeezer squeezer;
 
-  g_assert_true(squeezer.get_transition_type() == Adw::SqueezerTransitionType::NONE);
-
-  squeezer.set_transition_type(Adw::SqueezerTransitionType::CROSSFADE);
   g_assert_true(squeezer.get_transition_type() ==
-           Adw::SqueezerTransitionType::CROSSFADE);
+                Adw::Squeezer::TransitionType::NONE);
 
-  squeezer.set_transition_type(Adw::SqueezerTransitionType::NONE);
-  g_assert_true(squeezer.get_transition_type() == Adw::SqueezerTransitionType::NONE);
+  squeezer.set_transition_type(Adw::Squeezer::TransitionType::CROSSFADE);
+  g_assert_true(squeezer.get_transition_type() ==
+                Adw::Squeezer::TransitionType::CROSSFADE);
+
+  squeezer.set_transition_type(Adw::Squeezer::TransitionType::NONE);
+  g_assert_true(squeezer.get_transition_type() ==
+                Adw::Squeezer::TransitionType::NONE);
 }
 
 static void test_adw_squeezer_transition_running(void) {

@@ -154,14 +154,14 @@ void DemoPageAnimations::timed_animation_play_pause() {
   Glib::RefPtr<Adw::Animation> animation = get_current_animation();
 
   switch (animation->get_state()) {
-  case Adw::AnimationState::IDLE:
-  case Adw::AnimationState::FINISHED:
+  case Adw::Animation::State::IDLE:
+  case Adw::Animation::State::FINISHED:
     animation->play();
     break;
-  case Adw::AnimationState::PAUSED:
+  case Adw::Animation::State::PAUSED:
     animation->resume();
     break;
-  case Adw::AnimationState::PLAYING:
+  case Adw::Animation::State::PLAYING:
     animation->pause();
     break;
   default:
@@ -263,7 +263,8 @@ void DemoPageAnimations::timed_animation_measure(
   if (!child)
     return;
 
-  child->measure(Gtk::Orientation(orientation), for_size, *minimum, *natural, *minimum_baseline, *natural_baseline);
+  child->measure(Gtk::Orientation(orientation), for_size, *minimum, *natural,
+                 *minimum_baseline, *natural_baseline);
   // gtk_widget_measure(child, orientation, for_size, minimum, natural,
   //                    minimum_baseline, natural_baseline);
 }

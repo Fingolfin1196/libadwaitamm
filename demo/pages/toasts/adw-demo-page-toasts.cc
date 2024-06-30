@@ -57,7 +57,7 @@ void DemoPageToasts::toast_add_with_button_cb() {
     undo_toast = new Adw::Toast(
         Glib::ustring::sprintf(_("‘%s’ deleted"), "Lorem Ipsum"));
 
-    undo_toast->set_priority(Adw::ToastPriority::HIGH);
+    undo_toast->set_priority(Adw::Toast::Priority::HIGH);
     undo_toast->set_button_label(_("_Undo"));
     undo_toast->set_action_name("toast.undo");
 
@@ -101,7 +101,7 @@ void DemoPageToasts::undo() {
 
   Toast* toast = new Adw::Toast(title);
 
-  toast->set_priority(Adw::ToastPriority::HIGH);
+  toast->set_priority(Adw::Toast::Priority::HIGH);
 
   add_toast(toast);
 }

@@ -14,26 +14,26 @@ int notified;
 static void notify_cb() { notified++; }
 
 static void test_adw_flap_flap(void) {
-    Adw::Flap flap;
-    Gtk::Widget *widget = nullptr;
+  Adw::Flap flap;
+  Gtk::Widget *widget = nullptr;
 
-    notified = 0;
-    flap.property_flap().signal_changed().connect(sigc::ptr_fun(notify_cb));
+  notified = 0;
+  flap.property_flap().signal_changed().connect(sigc::ptr_fun(notify_cb));
 
-    widget = flap.get_property<Gtk::Widget*>("flap");
-    g_assert_null(widget);
+  widget = flap.get_property<Gtk::Widget *>("flap");
+  g_assert_null(widget);
 
-    flap.set_flap(nullptr);
-    g_assert_true(notified == 0);
+  flap.set_flap(nullptr);
+  g_assert_true(notified == 0);
 
-    widget = Gtk::make_managed<Gtk::Button>();
-    flap.set_flap(widget);
-    g_assert_true(flap.get_flap()->gobj() == widget->gobj());
-    g_assert_true(notified == 1);
+  widget = Gtk::make_managed<Gtk::Button>();
+  flap.set_flap(widget);
+  g_assert_true(flap.get_flap()->gobj() == widget->gobj());
+  g_assert_true(notified == 1);
 
-    flap.set_property<Gtk::Widget*>("flap", nullptr);
-    g_assert_null(flap.get_flap());
-    g_assert_true(notified == 2);
+  flap.set_property<Gtk::Widget *>("flap", nullptr);
+  g_assert_null(flap.get_flap());
+  g_assert_true(notified == 2);
 }
 
 static void test_adw_flap_separator(void) {
@@ -131,20 +131,20 @@ static void test_adw_flap_fold_policy(void) {
   flap.property_fold_policy().signal_changed().connect(
       sigc::ptr_fun(notify_cb));
 
-  Adw::FlapFoldPolicy policy =
-      flap.get_property<Adw::FlapFoldPolicy>("fold-policy");
-  g_assert_true(policy == Adw::FlapFoldPolicy::AUTO);
+  Adw::Flap::FoldPolicy policy =
+      flap.get_property<Adw::Flap::FoldPolicy>("fold-policy");
+  g_assert_true(policy == Adw::Flap::FoldPolicy::AUTO);
 
-  flap.set_fold_policy(Adw::FlapFoldPolicy::AUTO);
+  flap.set_fold_policy(Adw::Flap::FoldPolicy::AUTO);
   g_assert_true(notified == 0);
 
-  flap.set_fold_policy(Adw::FlapFoldPolicy::NEVER);
-  g_assert_true(flap.get_fold_policy() == Adw::FlapFoldPolicy::NEVER);
+  flap.set_fold_policy(Adw::Flap::FoldPolicy::NEVER);
+  g_assert_true(flap.get_fold_policy() == Adw::Flap::FoldPolicy::NEVER);
   g_assert_true(notified == 1);
 
-  flap.set_property<Adw::FlapFoldPolicy>("fold-policy",
-                                         Adw::FlapFoldPolicy::ALWAYS);
-  g_assert_true(flap.get_fold_policy() == Adw::FlapFoldPolicy::ALWAYS);
+  flap.set_property<Adw::Flap::FoldPolicy>("fold-policy",
+                                           Adw::Flap::FoldPolicy::ALWAYS);
+  g_assert_true(flap.get_fold_policy() == Adw::Flap::FoldPolicy::ALWAYS);
   g_assert_true(notified == 2);
 }
 
@@ -174,7 +174,7 @@ static void test_adw_flap_folded(void) {
   Adw::Flap flap;
 
   flap.set_flap(Gtk::make_managed<Gtk::Button>());
-  flap.set_fold_policy(Adw::FlapFoldPolicy::NEVER);
+  flap.set_fold_policy(Adw::Flap::FoldPolicy::NEVER);
 
   notified = 0;
   flap.property_folded().signal_changed().connect(sigc::ptr_fun(notify_cb));
@@ -182,7 +182,7 @@ static void test_adw_flap_folded(void) {
   bool folded = flap.get_property<bool>("folded");
   g_assert_false(folded);
 
-  flap.set_fold_policy(Adw::FlapFoldPolicy::ALWAYS);
+  flap.set_fold_policy(Adw::Flap::FoldPolicy::ALWAYS);
   g_assert_true(flap.get_folded());
   g_assert_true(notified == 1);
 }
@@ -217,20 +217,20 @@ static void test_adw_flap_transition_type(void) {
   flap.property_transition_type().signal_changed().connect(
       sigc::ptr_fun(notify_cb));
 
-  Adw::FlapTransitionType policy =
-      flap.get_property<Adw::FlapTransitionType>("transition-type");
-  g_assert_true(policy == Adw::FlapTransitionType::OVER);
+  Adw::Flap::TransitionType policy =
+      flap.get_property<Adw::Flap::TransitionType>("transition-type");
+  g_assert_true(policy == Adw::Flap::TransitionType::OVER);
 
-  flap.set_transition_type(Adw::FlapTransitionType::OVER);
+  flap.set_transition_type(Adw::Flap::TransitionType::OVER);
   g_assert_true(notified == 0);
 
-  flap.set_transition_type(Adw::FlapTransitionType::SLIDE);
-  g_assert_true(flap.get_transition_type() == Adw::FlapTransitionType::SLIDE);
+  flap.set_transition_type(Adw::Flap::TransitionType::SLIDE);
+  g_assert_true(flap.get_transition_type() == Adw::Flap::TransitionType::SLIDE);
   g_assert_true(notified == 1);
 
-  flap.set_property<Adw::FlapTransitionType>("transition-type",
-                                             Adw::FlapTransitionType::UNDER);
-  g_assert_true(flap.get_transition_type() == Adw::FlapTransitionType::UNDER);
+  flap.set_property<Adw::Flap::TransitionType>(
+      "transition-type", Adw::Flap::TransitionType::UNDER);
+  g_assert_true(flap.get_transition_type() == Adw::Flap::TransitionType::UNDER);
   g_assert_true(notified == 2);
 }
 

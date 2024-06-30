@@ -30,9 +30,9 @@ static void test_adw_animation_general(void) {
 
   g_assert_true(animation->get_widget() == &widget);
   g_assert_true(animation->get_target()->gobj() ==
-           (AdwAnimationTarget *)target->gobj());
+                (AdwAnimationTarget *)target->gobj());
 
-  g_assert_true(animation->get_state() == Adw::AnimationState::IDLE);
+  g_assert_true(animation->get_state() == Adw::Animation::State::IDLE);
   g_assert_true(animation->get_value() == 10);
   g_assert_true(last_value == 0);
   g_assert_true(done_count == 0);
@@ -40,7 +40,7 @@ static void test_adw_animation_general(void) {
   animation->play();
 
   /* Since the widget is not mapped, the animation will immediately finish */
-  g_assert_true(animation->get_state() == Adw::AnimationState::FINISHED);
+  g_assert_true(animation->get_state() == Adw::Animation::State::FINISHED);
   g_assert_true(animation->get_value() == 20);
   g_assert_true(last_value == 20);
   g_assert_true(done_count == 1);
@@ -53,14 +53,14 @@ static void test_adw_animation_general(void) {
 
   animation->skip();
 
-  g_assert_true(animation->get_state() == Adw::AnimationState::FINISHED);
+  g_assert_true(animation->get_state() == Adw::Animation::State::FINISHED);
   g_assert_true(animation->get_value() == 20);
   g_assert_true(last_value == 20);
   g_assert_true(done_count == 2);
 
   animation->set_target(target2);
   g_assert_true(animation->get_target()->gobj() ==
-           (AdwAnimationTarget *)target2->gobj());
+                (AdwAnimationTarget *)target2->gobj());
 
   g_assert_true(last_value == 20);
   g_assert_true(done_count == 2);

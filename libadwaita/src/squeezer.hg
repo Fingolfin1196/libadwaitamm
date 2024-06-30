@@ -32,9 +32,6 @@ _PINCLUDE(gtkmm/private/widget_p.h)
 namespace Adw
 {
 
-_WRAP_ENUM(SqueezerTransitionType, AdwSqueezerTransitionType)
-
-
 class Squeezer : public Gtk::Widget, public Gtk::Orientable {
   _CLASS_GTKOBJECT(Squeezer, AdwSqueezer, ADW_SQUEEZER, Gtk::Widget, GtkWidget)
   _STRUCT_NOT_HIDDEN
@@ -42,6 +39,8 @@ class Squeezer : public Gtk::Widget, public Gtk::Orientable {
   _DO_NOT_DERIVE_GTYPE
 
 public:
+  _WRAP_ENUM(TransitionType, AdwSqueezerTransitionType)
+
   _CTOR_DEFAULT
 
   _WRAP_METHOD(Glib::RefPtr<SqueezerPage> add(Gtk::Widget&), adw_squeezer_add, refreturn)
@@ -56,7 +55,7 @@ public:
   _WRAP_METHOD(FoldThresholdPolicy get_switch_threshold_policy() const, adw_squeezer_get_switch_threshold_policy)
   _WRAP_METHOD(guint get_transition_duration() const, adw_squeezer_get_transition_duration)
   _WRAP_METHOD(bool get_transition_running() const, adw_squeezer_get_transition_running)
-  _WRAP_METHOD(SqueezerTransitionType get_transition_type() const, adw_squeezer_get_transition_type)
+  _WRAP_METHOD(Squeezer::TransitionType get_transition_type() const, adw_squeezer_get_transition_type)
   _WRAP_METHOD(Gtk::Widget* get_visible_child() const, adw_squeezer_get_visible_child)
   _WRAP_METHOD(float get_xalign() const, adw_squeezer_get_xalign)
   _WRAP_METHOD(float get_yalign() const, adw_squeezer_get_yalign)
@@ -66,7 +65,7 @@ public:
   _WRAP_METHOD(void set_interpolate_size(bool homogeneous), adw_squeezer_set_interpolate_size)
   _WRAP_METHOD(void set_switch_threshold_policy(FoldThresholdPolicy policy), adw_squeezer_set_switch_threshold_policy)
   _WRAP_METHOD(void set_transition_duration(guint duration), adw_squeezer_set_transition_duration)
-  _WRAP_METHOD(void set_transition_type(SqueezerTransitionType transition), adw_squeezer_set_transition_type)
+  _WRAP_METHOD(void set_transition_type(TransitionType transition), adw_squeezer_set_transition_type)
   _WRAP_METHOD(void set_xalign(float xalign), adw_squeezer_set_xalign)
   _WRAP_METHOD(void set_yalign(float xalign), adw_squeezer_set_yalign)
 
@@ -77,7 +76,7 @@ public:
   _WRAP_PROPERTY("switch-threshold-policy", FoldThresholdPolicy)
   _WRAP_PROPERTY("transition-duration", guint)
   _WRAP_PROPERTY("transition-running", bool)
-  _WRAP_PROPERTY("transition-type", SqueezerTransitionType)
+  _WRAP_PROPERTY("transition-type", Squeezer::TransitionType)
   _WRAP_PROPERTY("visible-child", Gtk::Widget*)
   _WRAP_PROPERTY("xalign", float)
   _WRAP_PROPERTY("yalign", float)

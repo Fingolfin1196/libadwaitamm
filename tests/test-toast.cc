@@ -117,17 +117,17 @@ static void test_adw_toast_priority(void) {
   notified = 0;
   toast->property_priority().signal_changed().connect(sigc::ptr_fun(notify_cb));
 
-  Adw::ToastPriority priority =
-      toast->get_property<Adw::ToastPriority>("priority");
-  g_assert_true(priority == Adw::ToastPriority::NORMAL);
+  Adw::Toast::Priority priority =
+      toast->get_property<Adw::Toast::Priority>("priority");
+  g_assert_true(priority == Adw::Toast::Priority::NORMAL);
 
-  toast->set_priority(Adw::ToastPriority::HIGH);
-  g_assert_true(toast->get_priority() == Adw::ToastPriority::HIGH);
+  toast->set_priority(Adw::Toast::Priority::HIGH);
+  g_assert_true(toast->get_priority() == Adw::Toast::Priority::HIGH);
   g_assert_true(notified == 1);
 
-  toast->set_property<Adw::ToastPriority>("priority",
-                                          Adw::ToastPriority::NORMAL);
-  g_assert_true(toast->get_priority() == Adw::ToastPriority::NORMAL);
+  toast->set_property<Adw::Toast::Priority>("priority",
+                                            Adw::Toast::Priority::NORMAL);
+  g_assert_true(toast->get_priority() == Adw::Toast::Priority::NORMAL);
   g_assert_true(notified == 2);
 }
 

@@ -31,8 +31,6 @@ _PINCLUDE(glibmm/private/object_p.h)
 namespace Adw
 {
 
-  _WRAP_ENUM(ToastPriority, AdwToastPriority)
-
 class Toast : public Glib::Object {
   _CLASS_GOBJECT(Toast, AdwToast, ADW_TOAST, Glib::Object, GObject)
   _STRUCT_NOT_HIDDEN
@@ -43,13 +41,15 @@ protected:
   _IGNORE(adw_toast_new_format)
 
 public:
+  _WRAP_ENUM(Priority, AdwToastPriority)
+
   _WRAP_CTOR(Toast(const Glib::ustring& title), adw_toast_new)
 
   _WRAP_METHOD(void dismiss(), adw_toast_dismiss)
   _WRAP_METHOD(Glib::ustring get_action_name() const, adw_toast_get_action_name)
   _WRAP_METHOD(Glib::ustring get_button_label() const, adw_toast_get_button_label)
   _WRAP_METHOD(Gtk::Widget* get_custom_title() const, adw_toast_get_custom_title)
-  _WRAP_METHOD(ToastPriority get_priority() const, adw_toast_get_priority)
+  _WRAP_METHOD(Toast::Priority get_priority() const, adw_toast_get_priority)
   _WRAP_METHOD(guint get_timeout() const, adw_toast_get_timeout)
   _WRAP_METHOD(Glib::ustring get_title() const, adw_toast_get_title)
 
@@ -57,7 +57,7 @@ public:
   _WRAP_METHOD(void set_button_label(const Glib::ustring &button_label), adw_toast_set_button_label)
   _WRAP_METHOD(void set_custom_title(Gtk::Widget *widget), adw_toast_set_custom_title)
   _WRAP_METHOD(void set_detailed_action_name(const Glib::ustring& detailed_action_name), adw_toast_set_detailed_action_name)
-  _WRAP_METHOD(void set_priority(ToastPriority priority), adw_toast_set_priority)
+  _WRAP_METHOD(void set_priority(Priority priority), adw_toast_set_priority)
   _WRAP_METHOD(void set_timeout(guint timeout), adw_toast_set_timeout)
   _WRAP_METHOD(void set_title(const Glib::ustring& title), adw_toast_set_title)
 
@@ -69,7 +69,7 @@ public:
   _WRAP_PROPERTY("action-target", Glib::VariantBase)
   _WRAP_PROPERTY("button-label", Glib::ustring)
   _WRAP_PROPERTY("custom-title", Gtk::Widget*)
-  _WRAP_PROPERTY("priority", ToastPriority)
+  _WRAP_PROPERTY("priority", Toast::Priority)
   _WRAP_PROPERTY("timeout", guint)
   _WRAP_PROPERTY("title", Glib::ustring)
 

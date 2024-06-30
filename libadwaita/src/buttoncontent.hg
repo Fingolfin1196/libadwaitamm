@@ -38,13 +38,16 @@ class ButtonContent : public Gtk::Widget {
 public:
   _CTOR_DEFAULT
 
+  _WRAP_METHOD(bool get_can_shrink() const, adw_button_content_get_can_shrink)
   _WRAP_METHOD(Glib::ustring get_icon_name() const, adw_button_content_get_icon_name)
   _WRAP_METHOD(Glib::ustring get_label() const, adw_button_content_get_label)
   _WRAP_METHOD(bool get_use_underline() const, adw_button_content_get_use_underline)
+  _WRAP_METHOD(void set_can_shrink(bool can_shrink), adw_button_content_set_can_shrink)
   _WRAP_METHOD(void set_icon_name(const Glib::ustring& icon_name), adw_button_content_set_icon_name)
   _WRAP_METHOD(void set_label(const Glib::ustring& label), adw_button_content_set_label)
   _WRAP_METHOD(void set_use_underline(bool use_underline), adw_button_content_set_use_underline)
 
+  _WRAP_PROPERTY("can_shrink", bool)
   _WRAP_PROPERTY("icon_name", Glib::ustring)
   _WRAP_PROPERTY("label", Glib::ustring)
   _WRAP_PROPERTY("use_underline", bool)
