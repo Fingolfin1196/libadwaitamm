@@ -18,6 +18,7 @@ Currently, the updates are very incomplete and encompass the parts of `libadwait
 - `gtkmm 4.14.0`
 - `libadwaita 1.5.2`
 - `mm-common 1.0.6`
+  - This is only needed when building in maintainer mode, which is the default when not building from a tarball.
 
 It is, however, very likely that somewhat older versions of these dependencies (apart from `libadwaita`) are sufficient to compile this project.
 
