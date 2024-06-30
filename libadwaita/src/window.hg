@@ -33,7 +33,7 @@ public:
   _CTOR_DEFAULT
 
   _WRAP_METHOD(Gtk::Widget* get_content() const, adw_window_get_content)
-  _WRAP_METHOD(void set_content(Gtk::Widget* content), adw_window_set_content)
+  _WRAP_METHOD(void set_content(Gtk::Widget& content), adw_window_set_content)
   _WRAP_PROPERTY("content", Gtk::Widget*)
 };
 

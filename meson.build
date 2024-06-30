@@ -1,7 +1,7 @@
 # This file is part of libadwaitamm.
 
 project('libadwaitamm', 'cpp',
-  version: '1.2.0-beta1',
+  version: '1.5.0-beta1',
   license: 'LGPLv2.1+',
   default_options: [
     'cpp_std=c++17',
